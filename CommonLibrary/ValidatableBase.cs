@@ -67,7 +67,7 @@ namespace MVVMLibrary
         public void Validate(string address)
         {
             VerificationResult r = new VerificationResult();
-            if (address.StartsWith("bc1"))
+            if (address.StartsWith("grs1"))
             {
                 r = SegWitAddress.Verify(address, SegWitAddress.NetworkType.MainNet);
             }

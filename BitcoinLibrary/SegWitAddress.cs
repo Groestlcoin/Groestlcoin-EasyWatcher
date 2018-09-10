@@ -38,8 +38,8 @@ namespace BitcoinLibrary
             byte[] hrpExpand = new byte[(2 * len) + 1];
             for (int i = 0; i < len; i++)
             {
-                hrpExpand[i] = (byte)("bc"[i] >> 5);
-                hrpExpand[i + len + 1] = (byte)("bc"[i] & 31);
+                hrpExpand[i] = (byte)("grs"[i] >> 5);
+                hrpExpand[i + len + 1] = (byte)("grs"[i] & 31);
             }
             return hrpExpand;
         }
@@ -101,7 +101,7 @@ namespace BitcoinLibrary
         {
             VerificationResult result = new VerificationResult() { IsVerified = false };
 
-            string hrp = (nt == NetworkType.MainNet) ? "bc" : "tb";
+            string hrp = (nt == NetworkType.MainNet) ? "grs" : "tgrs";
             if (!btcAddress.StartsWith(hrp, StringComparison.InvariantCultureIgnoreCase))
             {
                 result.Error = "Invalid Human Readable Part!";

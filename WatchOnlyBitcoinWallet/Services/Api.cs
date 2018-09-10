@@ -9,15 +9,15 @@ namespace WatchOnlyBitcoinWallet.Services
 {
     public enum PriceServiceNames
     {
-        Bitfinex,
-        Btce
+        Chainz
     }
     public enum BalanceServiceNames
     {
         BlockchainInfo,
         BlockExplorer,
         BlockCypher,
-        Blockonomics
+        Blockonomics,
+        ChainzInfo
     }
 
     public abstract class Api

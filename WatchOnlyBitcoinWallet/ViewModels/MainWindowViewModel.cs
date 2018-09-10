@@ -222,6 +222,9 @@ namespace WatchOnlyBitcoinWallet.ViewModels
                 case BalanceServiceNames.Blockonomics:
                     api = new Blockonomics();
                     break;
+                case BalanceServiceNames.ChainzInfo:
+                    api = new ChainzInfo();
+                    break;
                 default:
                     api = new BlockchainInfo();
                     break;

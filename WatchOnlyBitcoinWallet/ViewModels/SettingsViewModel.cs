@@ -128,14 +128,11 @@ namespace WatchOnlyBitcoinWallet.ViewModels
             PriceApi api = null;
             switch (Settings.SelectedPriceApi)
             {
-                case PriceServiceNames.Bitfinex:
-                    api = new Bitfinex();
-                    break;
-                case PriceServiceNames.Btce:
-                    api = new Btce();
+                case PriceServiceNames.Chainz:
+                    api = new Chainz();
                     break;
                 default:
-                    api = new Bitfinex();
+                    api = new Chainz();
                     break;
             }
 
