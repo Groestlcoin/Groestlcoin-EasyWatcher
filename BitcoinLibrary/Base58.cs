@@ -18,8 +18,8 @@ namespace GroestlcoinLibrary {
                 result.Error = "Address can not be empty!";
                 return result;
             }
-            if (!grsAddress.StartsWith("1") && !grsAddress.StartsWith("3")) {
-                result.Error = "Base58 address starts with 1 or 3!";
+            if (!grsAddress.StartsWith("F") && !grsAddress.StartsWith("3")) {
+                result.Error = "Base58 address starts with F or 3!";
                 return result;
             }
             //todo: Revisit specific groestl512 validation
