@@ -9,14 +9,13 @@
           </Hyperlink>
         </TextBlock>
 
-        <TextBlock HorizontalAlignment="Left" Margin="110,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top">
           <Hyperlink x:Name="DonationHyperLink">
             Donate Groestlcoin
           </Hyperlink>
         </TextBlock>
 
-        <TextBox x:Name="txtDonate" HorizontalAlignment="Left" Height="25" Margin="10,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" IsReadOnly="True" TextAlignment="Center"/>
-
+        <TextBox x:Name="txtDonate" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" IsReadOnly="True" TextAlignment="Center"/>
         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Developer: Yokomoko" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="22" FontWeight="Bold" TextAlignment="Center"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" Text="Watch Only Groestlcoin Wallet" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="22" Width="292" FontWeight="Bold" TextAlignment="Center"/>
     </Grid>

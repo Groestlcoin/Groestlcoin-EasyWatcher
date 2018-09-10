@@ -24,15 +24,6 @@ namespace WatchOnlyGroestlcoinWallet.Services.BalanceServices {
                         resp.Errors.Add(res.ReasonPhrase);
                     }
                 }
-
-                //Response<JObject> apiResp = await SendApiRequestAsync(url);
-                //if (apiResp.Errors.Any()) {
-                //    resp.Errors.AddRange(apiResp.Errors);
-                //    break;
-                //}
-                //decimal bal = (Int64)apiResp.Result["final_balance"] * Satoshi;
-                //addr.Difference = bal - addr.Balance;
-                //addr.Balance = bal;
             }
             return resp;
         }

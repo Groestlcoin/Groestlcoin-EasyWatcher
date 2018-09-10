@@ -3,14 +3,12 @@ using System;
 using System.Collections.ObjectModel;
 using WatchOnlyGroestlcoinWallet.Models;
 using WatchOnlyGroestlcoinWallet.Services;
+using WatchOnlyGroestlcoinWallet.Services.BalanceServices;
 using WatchOnlyGroestlcoinWallet.Services.PriceServices;
 
-namespace WatchOnlyGroestlcoinWallet.ViewModels
-{
-    public class SettingsViewModel : ViewModelBase
-    {
-        public SettingsViewModel()
-        {
+namespace WatchOnlyGroestlcoinWallet.ViewModels {
+    public class SettingsViewModel : ViewModelBase {
+        public SettingsViewModel() {
             BalanceApiList = new ObservableCollection<BalanceServiceNames>((BalanceServiceNames[])Enum.GetValues(typeof(BalanceServiceNames)));
             PriceApiList = new ObservableCollection<PriceServiceNames>((PriceServiceNames[])Enum.GetValues(typeof(PriceServiceNames)));
 
@@ -23,13 +21,10 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
         /// Indicating an active connection.
         /// <para/> Used to enable/disable buttons
         /// </summary>
-        public bool IsReceiving
-        {
+        public bool IsReceiving {
             get { return isReceiving; }
-            set
-            {
-                if (SetField(ref isReceiving, value))
-                {
+            set {
+                if (SetField(ref isReceiving, value)) {
                     UpdatePriceCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -43,18 +38,15 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
 
 
         private SettingsModel settings;
-        public SettingsModel Settings
-        {
+        public SettingsModel Settings {
             get { return settings; }
             set { SetField(ref settings, value); }
         }
 
 
-        public BalanceServiceNames SelectedBalanceApi
-        {
+        public BalanceServiceNames SelectedBalanceApi {
             get { return Settings.SelectedBalanceApi; }
-            set
-            {
+            set {
                 if (Settings.SelectedBalanceApi != value) // Can't use SetField here because of "ref"
                 {
                     Settings.SelectedBalanceApi = value;
@@ -64,13 +56,10 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
         }
 
 
-        public PriceServiceNames SelectedPriceApi
-        {
+        public PriceServiceNames SelectedPriceApi {
             get { return Settings.SelectedPriceApi; }
-            set
-            {
-                if (Settings.SelectedPriceApi != value)
-                {
+            set {
+                if (Settings.SelectedPriceApi != value) {
                     Settings.SelectedPriceApi = value;
                     RaisePropertyChanged("SelectedPriceApi");
                 }
@@ -78,39 +67,30 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
         }
 
 
-        public decimal GroestlcoinPrice
-        {
+        public decimal GroestlcoinPrice {
             get { return Settings.GroestlcoinPriceInUSD; }
-            set
-            {
-                if (Settings.GroestlcoinPriceInUSD != value)
-                {
+            set {
+                if (Settings.GroestlcoinPriceInUSD != value) {
                     Settings.GroestlcoinPriceInUSD = value;
                     RaisePropertyChanged("GroestlcoinPrice");
                 }
             }
         }
 
-        public decimal USDPrice
-        {
+        public decimal USDPrice {
             get { return Settings.DollarPriceInLocalCurrency; }
-            set
-            {
-                if (Settings.DollarPriceInLocalCurrency != value)
-                {
+            set {
+                if (Settings.DollarPriceInLocalCurrency != value) {
                     Settings.DollarPriceInLocalCurrency = value;
                     RaisePropertyChanged("USDPrice");
                 }
             }
         }
 
-        public string LocalCurrencySymbol
-        {
+        public string LocalCurrencySymbol {
             get { return Settings.LocalCurrencySymbol; }
-            set
-            {
-                if (Settings.LocalCurrencySymbol != value)
-                {
+            set {
+                if (Settings.LocalCurrencySymbol != value) {
                     Settings.LocalCurrencySymbol = value;
                     RaisePropertyChanged("LocalCurrencySymbol");
                 }
@@ -119,36 +99,34 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
 
 
         public BindableCommand UpdatePriceCommand { get; private set; }
-        private async void UpdatePrice()
-        {
+        private async void UpdatePrice() {
             Status = "Fetching Groestlcoin Price...";
             Errors = string.Empty;
             IsReceiving = true;
 
             PriceApi api = null;
-            switch (Settings.SelectedPriceApi)
-            {
+            switch (Settings.SelectedPriceApi) {
                 case PriceServiceNames.Chainz:
-                    api = new Chainz();
+                    api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
+                    break;
+                case PriceServiceNames.CoinMarketCap:
+                    api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.CoinMarketCap();
                     break;
                 default:
-                    api = new Chainz();
+                    api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
                     break;
             }
 
             Response<decimal> resp = await api.UpdatePriceAsync();
-            if (resp.Errors.Any())
-            {
+            if (resp.Errors.Any()) {
                 Errors = resp.Errors.GetErrors();
                 Status = "Encountered an error!";
             }
-            else
-            {
+            else {
                 Settings.GroestlcoinPriceInUSD = resp.Result;
                 RaisePropertyChanged("GroestlcoinPrice");
                 Status = "Price Update Success!";
             }
-
             IsReceiving = false;
         }
 

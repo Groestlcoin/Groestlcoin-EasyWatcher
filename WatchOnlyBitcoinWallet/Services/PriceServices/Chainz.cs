@@ -2,12 +2,9 @@
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
-namespace WatchOnlyGroestlcoinWallet.Services.PriceServices
-{
-    public class Chainz : PriceApi
-    {
-        public override async Task<Response<decimal>> UpdatePriceAsync()
-        {
+namespace WatchOnlyGroestlcoinWallet.Services.PriceServices {
+    public class Chainz : PriceApi {
+        public override async Task<Response<decimal>> UpdatePriceAsync() {
             Response<decimal> resp = new Response<decimal>();
             var url = "https://chainz.cryptoid.info/grs/api.dws?q=ticker.usd";
 
