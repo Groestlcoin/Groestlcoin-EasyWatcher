@@ -23,7 +23,6 @@ namespace WatchOnlyBitcoinWallet.ViewModels
 
             GetBalanceCommand = new BindableCommand(GetBalance, () => !IsReceiving);
             SettingsCommand = new BindableCommand(OpenSettings);
-            ForkBalanceCommand = new BindableCommand(ForkBalance);
 
             ImportFromTextCommand = new BindableCommand(ImportFromText);
             ImportFromFileCommand = new BindableCommand(ImportFromFile);
@@ -123,15 +122,6 @@ namespace WatchOnlyBitcoinWallet.ViewModels
             DataManager.WriteFile(SettingsInstance, DataManager.FileType.Settings);
         }
 
-
-        public BindableCommand ForkBalanceCommand { get; private set; }
-        private void ForkBalance()
-        {
-            IWindowManager winManager = new ForkBalanceWindowManager();
-            ForkBalanceViewModel vm = new ForkBalanceViewModel();
-            vm.AddressList = new ObservableCollection<BitcoinAddress>(AddressList);
-            winManager.Show(vm);
-        }
 
 
         public BindableCommand ImportFromTextCommand { get; private set; }

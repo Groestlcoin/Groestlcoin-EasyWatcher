@@ -21,17 +21,6 @@ namespace WatchOnlyBitcoinWallet.Services
         }
     }
 
-    public class ForkBalanceWindowManager : IWindowManager
-    {
-        public void Show(CommonBase ViewModel)
-        {
-            ForkBalanceWindow myWin = new ForkBalanceWindow();
-            myWin.DataContext = ViewModel;
-            myWin.Owner = Application.Current.MainWindow;
-            myWin.ShowDialog();
-        }
-    }
-
     public class ImportWindowManager : IWindowManager
     {
         public void Show(CommonBase ViewModel)
