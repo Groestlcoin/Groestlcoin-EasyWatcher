@@ -12,6 +12,7 @@
     <Window.Resources>
         <mvvm:BooleanToVisibilityConverter x:Key="visibilityConverter"/>
         <mvvm:NumberToColorConverter x:Key="numToColorConverter"/>
+        <mvvm:StringNullOrEmptyBoolConverter x:Key="NullOrEmptyBoolConverter"></mvvm:StringNullOrEmptyBoolConverter>
     </Window.Resources>
 
     <Window.CommandBindings>
@@ -86,7 +87,7 @@
 
                 <TextBlock Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N8\}}" Grid.Column="1" Grid.Row="1"/>
                 <TextBlock Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}" Grid.Column="1" Grid.Row="2"/>
-                <TextBlock Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N0\}}" Grid.Column="1" Grid.Row="3"/>
+                <TextBlock Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N0\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }" Grid.Column="1" Grid.Row="3"/>
 
                 <ScrollViewer Visibility="{Binding IsErrorMsgVisible, Converter={StaticResource visibilityConverter}}" Margin="0,5,5,5" Grid.ColumnSpan="2" Grid.Row="4">
                     <TextBlock Text="{Binding Errors}" Visibility="{Binding IsErrorMsgVisible, Converter={StaticResource visibilityConverter}}" TextWrapping="Wrap" Background="#FFECB1B1"/>
