@@ -1,7 +1,7 @@
-﻿using BitcoinLibrary;
+﻿using GroestlcoinLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BitcoinLibraryTests
+namespace GroestlcoinLibraryTests
 {
     [TestClass]
     public class Base58Tests
@@ -9,16 +9,16 @@ namespace BitcoinLibraryTests
         [TestMethod]
         public void TestMethod1()
         {
-            // Examples are from https://en.bitcoin.it/wiki/Address
+            // Examples are from https://chainz.cryptoid.info/grs/#!rich
             string[] correctAddresses = 
-            { 
-                "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2", 
-                "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy" 
+            {
+                "3PzGYz5R9JPtUAVRP996dVn2iSugy9gsMU",
+                "36SDhzC2o12VFUsoGdCMfzVrdN8SzGyncY"
             };
             string[] incorrectAddresses = 
-            { 
-                "1BvBMSEYStWetqTFn5Au4m4GFg7xJaNVN2", 
-                "3J92t1WpEZ73CNmQviecrnyiWrnqRhWNLy", 
+            {
+                "3BSDhzC2o12VFUsoGdCMfzVrdN8SzGyncY", 
+                "3A92t1WpEZ73CNmQviecrnyiWrnqRhWNLy", 
                 "5BvBMSEYStWetqTFn5Au4m4GFg7xJaNVN2", 
                 " ", 
                 "" 

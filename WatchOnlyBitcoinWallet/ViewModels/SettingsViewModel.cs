@@ -1,11 +1,11 @@
 ﻿using MVVMLibrary;
 using System;
 using System.Collections.ObjectModel;
-using WatchOnlyBitcoinWallet.Models;
-using WatchOnlyBitcoinWallet.Services;
-using WatchOnlyBitcoinWallet.Services.PriceServices;
+using WatchOnlyGroestlcoinWallet.Models;
+using WatchOnlyGroestlcoinWallet.Services;
+using WatchOnlyGroestlcoinWallet.Services.PriceServices;
 
-namespace WatchOnlyBitcoinWallet.ViewModels
+namespace WatchOnlyGroestlcoinWallet.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
@@ -78,15 +78,15 @@ namespace WatchOnlyBitcoinWallet.ViewModels
         }
 
 
-        public decimal BitcoinPrice
+        public decimal GroestlcoinPrice
         {
-            get { return Settings.BitcoinPriceInUSD; }
+            get { return Settings.GroestlcoinPriceInUSD; }
             set
             {
-                if (Settings.BitcoinPriceInUSD != value)
+                if (Settings.GroestlcoinPriceInUSD != value)
                 {
-                    Settings.BitcoinPriceInUSD = value;
-                    RaisePropertyChanged("BitcoinPrice");
+                    Settings.GroestlcoinPriceInUSD = value;
+                    RaisePropertyChanged("GroestlcoinPrice");
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace WatchOnlyBitcoinWallet.ViewModels
         public BindableCommand UpdatePriceCommand { get; private set; }
         private async void UpdatePrice()
         {
-            Status = "Fetching Bitcoin Price...";
+            Status = "Fetching Groestlcoin Price...";
             Errors = string.Empty;
             IsReceiving = true;
 
@@ -144,8 +144,8 @@ namespace WatchOnlyBitcoinWallet.ViewModels
             }
             else
             {
-                Settings.BitcoinPriceInUSD = resp.Result;
-                RaisePropertyChanged("BitcoinPrice");
+                Settings.GroestlcoinPriceInUSD = resp.Result;
+                RaisePropertyChanged("GroestlcoinPrice");
                 Status = "Price Update Success!";
             }
 

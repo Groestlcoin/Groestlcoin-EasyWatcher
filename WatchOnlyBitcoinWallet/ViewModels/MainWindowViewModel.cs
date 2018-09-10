@@ -1,4 +1,4 @@
-﻿using BitcoinLibrary;
+﻿using GroestlcoinLibrary;
 using MVVMLibrary;
 using System;
 using System.Collections.Generic;
@@ -6,17 +6,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using WatchOnlyBitcoinWallet.Models;
-using WatchOnlyBitcoinWallet.Services;
-using WatchOnlyBitcoinWallet.Services.BalanceServices;
+using WatchOnlyGroestlcoinWallet.Models;
+using WatchOnlyGroestlcoinWallet.Services;
+using WatchOnlyGroestlcoinWallet.Services.BalanceServices;
 
-namespace WatchOnlyBitcoinWallet.ViewModels
-{
-    public class MainWindowViewModel : ViewModelBase
-    {
-        public MainWindowViewModel()
-        {
-            AddressList = new BindingList<BitcoinAddress>(DataManager.ReadFile<List<BitcoinAddress>>(DataManager.FileType.Wallet));
+namespace WatchOnlyGroestlcoinWallet.ViewModels {
+    public class MainWindowViewModel : ViewModelBase {
+        public MainWindowViewModel() {
+            AddressList = new BindingList<GroestlcoinAddress>(DataManager.ReadFile<List<GroestlcoinAddress>>(DataManager.FileType.Wallet));
             AddressList.ListChanged += AddressList_ListChanged;
 
             SettingsInstance = DataManager.ReadFile<SettingsModel>(DataManager.FileType.Settings);
@@ -33,22 +30,17 @@ namespace WatchOnlyBitcoinWallet.ViewModels
 
 
 
-        void AddressList_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.ListChangedType == ListChangedType.ItemChanged)
-            {
-                BitcoinAddress addr = ((BindingList<BitcoinAddress>)sender)[e.NewIndex];
-                if (addr.Address != null)
-                {
+        void AddressList_ListChanged(object sender, ListChangedEventArgs e) {
+            if (e.ListChangedType == ListChangedType.ItemChanged) {
+                GroestlcoinAddress addr = ((BindingList<GroestlcoinAddress>)sender)[e.NewIndex];
+                if (addr.Address != null) {
                     addr.Validate(addr.Address);
                 }
-                if (!addr.HasErrors)
-                {
+                if (!addr.HasErrors) {
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
                 }
             }
-            else if (e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemAdded)
-            {
+            else if (e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemAdded) {
                 DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
             }
         }
@@ -58,13 +50,10 @@ namespace WatchOnlyBitcoinWallet.ViewModels
         /// Indicating an active connection.
         /// <para/> Used to enable/disable buttons
         /// </summary>
-        public bool IsReceiving
-        {
+        public bool IsReceiving {
             get { return isReceiving; }
-            set
-            {
-                if (SetField(ref isReceiving, value))
-                {
+            set {
+                if (SetField(ref isReceiving, value)) {
                     GetBalanceCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -74,46 +63,29 @@ namespace WatchOnlyBitcoinWallet.ViewModels
         public string VersionString { get; private set; }
 
 
-        public BindingList<BitcoinAddress> AddressList { get; set; }
+        public BindingList<GroestlcoinAddress> AddressList { get; set; }
 
 
         private SettingsModel settingsInstance;
-        public SettingsModel SettingsInstance
-        {
+        public SettingsModel SettingsInstance {
             get { return settingsInstance; }
             set { SetField(ref settingsInstance, value); }
         }
 
-        public decimal BitcoinBalance
-        {
-            get
-            {
+        public decimal GroestlcoinBalance {
+            get {
                 return AddressList.Sum(x => (decimal)x.Balance);
             }
         }
 
-        [DependsOnProperty(new string[] { "BitcoinBalance", "SettingsInstance" })]
-        public decimal BitcoinBalanceUSD
-        {
-            get
-            {
-                return BitcoinBalance * SettingsInstance.BitcoinPriceInUSD;
-            }
-        }
+        [DependsOnProperty(new[] { "GroestlcoinBalance", "SettingsInstance" })]
+        public decimal GroestlcoinBalanceUSD => GroestlcoinBalance * SettingsInstance.GroestlcoinPriceInUSD;
 
-        [DependsOnProperty(new string[] { "BitcoinBalance", "SettingsInstance" })]
-        public decimal BitcoinBalanceLC
-        {
-            get
-            {
-                return BitcoinBalanceUSD * SettingsInstance.DollarPriceInLocalCurrency;
-            }
-        }
-
+        [DependsOnProperty(new[] { "GroestlcoinBalance", "SettingsInstance" })]
+        public decimal GroestlcoinBalanceLC => GroestlcoinBalanceUSD * SettingsInstance.DollarPriceInLocalCurrency;
 
         public BindableCommand SettingsCommand { get; private set; }
-        private void OpenSettings()
-        {
+        private void OpenSettings() {
             IWindowManager winManager = new SettingsWindowManager();
             SettingsViewModel vm = new SettingsViewModel();
             vm.Settings = SettingsInstance;
@@ -124,61 +96,50 @@ namespace WatchOnlyBitcoinWallet.ViewModels
 
 
 
-        public BindableCommand ImportFromTextCommand { get; private set; }
-        private void ImportFromText()
-        {
+        public BindableCommand ImportFromTextCommand { get; }
+        private void ImportFromText() {
             IWindowManager winManager = new ImportWindowManager();
             ImportViewModel vm = new ImportViewModel();
             winManager.Show(vm);
 
-            if (vm.AddressList != null && vm.AddressList.Count != 0)
-            {
+            if (vm.AddressList != null && vm.AddressList.Count != 0) {
                 vm.AddressList.ForEach(x => AddressList.Add(x));
-                Status = string.Format("Successfully added {0} addresses.", vm.AddressList.Count);
+                Status = $"Successfully added {vm.AddressList.Count} addresses.";
             }
         }
 
 
         public BindableCommand ImportFromFileCommand { get; private set; }
-        private void ImportFromFile()
-        {
+        private void ImportFromFile() {
             Response<string[]> resp = DataManager.OpenFileDialog();
-            if (resp.Errors.Any())
-            {
+            if (resp.Errors.Any()) {
                 Errors = resp.Errors.GetErrors();
                 Status = "Encountered an error while reading from file!";
             }
-            else if (resp.Result != null)
-            {
+            else if (resp.Result != null) {
                 int addrCount = 0;
-                foreach (var s in resp.Result)
-                {
+                foreach (var s in resp.Result) {
                     // remove possible white space
                     string addr = s.Replace(" ", "");
 
                     VerificationResult vr = ValidateAddr(addr);
-                    if (vr.IsVerified)
-                    {
-                        AddressList.Add(new BitcoinAddress() { Address = addr });
+                    if (vr.IsVerified) {
+                        AddressList.Add(new GroestlcoinAddress() { Address = addr });
                         addrCount++;
                     }
-                    else
-                    {
+                    else {
                         Errors += Environment.NewLine + vr.Error + ": " + addr;
                     }
                 }
-                Status = string.Format("Successfully added {0} addresses.", addrCount);
+                Status = $"Successfully added {addrCount} addresses.";
             }
         }
-        private VerificationResult ValidateAddr(string addr)
-        {
+        private VerificationResult ValidateAddr(string addr) {
             VerificationResult vr = new VerificationResult();
-            if (addr.StartsWith("bc1"))
-            {
+            if (addr.StartsWith("grs1")) {
                 vr = SegWitAddress.Verify(addr, SegWitAddress.NetworkType.MainNet);
             }
-            else
-            {
+            else {
                 vr = Base58.Verify(addr);
             }
             return vr;
@@ -186,10 +147,8 @@ namespace WatchOnlyBitcoinWallet.ViewModels
 
 
         public BindableCommand GetBalanceCommand { get; private set; }
-        private async void GetBalance()
-        {
-            if (!AddressList.ToList().TrueForAll(x => !x.HasErrors))
-            {
+        private async void GetBalance() {
+            if (!AddressList.ToList().TrueForAll(x => !x.HasErrors)) {
                 Errors = "Fix the errors in addresses first!";
                 return;
             }
@@ -198,70 +157,50 @@ namespace WatchOnlyBitcoinWallet.ViewModels
             IsReceiving = true;
 
             BalanceApi api = null;
-            switch (SettingsInstance.SelectedBalanceApi)
-            {
-                case BalanceServiceNames.BlockchainInfo:
-                    api = new BlockchainInfo();
-                    break;
-                case BalanceServiceNames.BlockExplorer:
-                    api = new BlockExplorer();
-                    break;
-                case BalanceServiceNames.BlockCypher:
-                    api = new BlockCypher();
-                    break;
-                case BalanceServiceNames.Blockonomics:
-                    api = new Blockonomics();
-                    break;
-                case BalanceServiceNames.ChainzInfo:
-                    api = new ChainzInfo();
+            switch (SettingsInstance.SelectedBalanceApi) {
+                case BalanceServiceNames.Chainz:
+                    api = new Chainz();
                     break;
                 default:
-                    api = new BlockchainInfo();
+                    api = new Chainz();
                     break;
             }
 
             // Not all exchanges support Bech32 addresses!
             // The following "if" is to solve that.
-            bool hasSegWit = AddressList.Any(x => x.Address.StartsWith("bc1", System.StringComparison.InvariantCultureIgnoreCase));
-            if (hasSegWit && !SettingsInstance.SelectedBalanceApi.Equals(BalanceServiceNames.Blockonomics))
-            {
-                BalanceApi segApi = new Blockonomics();
-                List<BitcoinAddress> legacyAddrs = new List<BitcoinAddress>(AddressList.Where(x =>
-                    !x.Address.StartsWith("bc1", System.StringComparison.OrdinalIgnoreCase)));
-                List<BitcoinAddress> segWitAddrs = new List<BitcoinAddress>(AddressList.Where(x =>
-                    x.Address.StartsWith("bc1", System.StringComparison.OrdinalIgnoreCase)));
+            bool hasSegWit = AddressList.Any(x => x.Address.StartsWith("grs1", System.StringComparison.InvariantCultureIgnoreCase));
+            if (hasSegWit) {
+                BalanceApi segApi = new Chainz();
+                List<GroestlcoinAddress> legacyAddrs = new List<GroestlcoinAddress>(AddressList.Where(x =>
+                    !x.Address.StartsWith("grs1", System.StringComparison.OrdinalIgnoreCase)));
+                List<GroestlcoinAddress> segWitAddrs = new List<GroestlcoinAddress>(AddressList.Where(x =>
+                    x.Address.StartsWith("grs1", System.StringComparison.OrdinalIgnoreCase)));
 
                 Response respSW = await segApi.UpdateBalancesAsync(segWitAddrs);
-                if (respSW.Errors.Any())
-                {
+                if (respSW.Errors.Any()) {
                     Errors = "SegWit API error: " + respSW.Errors.GetErrors();
                     Status = "Error in SegWit API! Continue updating legacy balances...";
                 }
                 Response resp = await api.UpdateBalancesAsync(legacyAddrs);
-                if (resp.Errors.Any())
-                {
+                if (resp.Errors.Any()) {
                     Errors = resp.Errors.GetErrors();
                     Status = "Encountered an error!";
                 }
-                else
-                {
+                else {
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
-                    RaisePropertyChanged("BitcoinBalance");
+                    RaisePropertyChanged("GroestlcoinBalance");
                     Status = "Balance Update Success!";
                 }
             }
-            else
-            {
+            else {
                 Response resp = await api.UpdateBalancesAsync(AddressList.ToList());
-                if (resp.Errors.Any())
-                {
+                if (resp.Errors.Any()) {
                     Errors = resp.Errors.GetErrors();
                     Status = "Encountered an error!";
                 }
-                else
-                {
+                else {
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
-                    RaisePropertyChanged("BitcoinBalance");
+                    RaisePropertyChanged("GroestlcoinBalance");
                     Status = "Balance Update Success!";
                 }
             }

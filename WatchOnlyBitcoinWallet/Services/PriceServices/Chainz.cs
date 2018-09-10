@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
-namespace WatchOnlyBitcoinWallet.Services.PriceServices
+namespace WatchOnlyGroestlcoinWallet.Services.PriceServices
 {
     public class Chainz : PriceApi
     {

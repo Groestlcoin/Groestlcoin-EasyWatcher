@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BitcoinLibrary
+namespace GroestlcoinLibrary
 {
     public static class SegWitAddress
     {
@@ -93,49 +93,49 @@ namespace BitcoinLibrary
 
 
         /// <summary>
-        /// Checks to see if a given string (bitcoin address) is a valid Bech32 SegWit address.
+        /// Checks to see if a given string (groestlcoin address) is a valid Bech32 SegWit address.
         /// </summary>
-        /// <param name="btcAddress">Bitcoin address to check</param>
+        /// <param name="grsAddress">Groestlcoin address to check</param>
         /// <returns>True if Bech32 encoded</returns>
-        public static VerificationResult Verify(string btcAddress, NetworkType nt)
+        public static VerificationResult Verify(string grsAddress, NetworkType nt)
         {
             VerificationResult result = new VerificationResult() { IsVerified = false };
 
             string hrp = (nt == NetworkType.MainNet) ? "grs" : "tgrs";
-            if (!btcAddress.StartsWith(hrp, StringComparison.InvariantCultureIgnoreCase))
+            if (!grsAddress.StartsWith(hrp, StringComparison.InvariantCultureIgnoreCase))
             {
                 result.Error = "Invalid Human Readable Part!";
                 return result;
             }
             // Reject short or long
-            if (btcAddress.Length < 14 && btcAddress.Length > 74)
+            if (grsAddress.Length < 14 && grsAddress.Length > 74)
             {
                 result.Error = "Invalid length!";
                 return result;
             }
             // Reject mix case (Invariant is used to pass the "Turkey test")
-            if (!btcAddress.ToUpperInvariant().Equals(btcAddress) && !btcAddress.ToLowerInvariant().Equals(btcAddress))
+            if (!grsAddress.ToUpperInvariant().Equals(grsAddress) && !grsAddress.ToLowerInvariant().Equals(grsAddress))
             {
                 result.Error = "Mix case is not allowed!";
                 return result;
             }
             // For checksum purposes only lower case is used.
-            btcAddress = btcAddress.ToLowerInvariant();
+            grsAddress = grsAddress.ToLowerInvariant();
             // Check separator
-            int separatorPos = btcAddress.LastIndexOf("1", StringComparison.OrdinalIgnoreCase);
-            if (separatorPos < 1 || separatorPos + 7 > btcAddress.Length)
+            int separatorPos = grsAddress.LastIndexOf("1", StringComparison.OrdinalIgnoreCase);
+            if (separatorPos < 1 || separatorPos + 7 > grsAddress.Length)
             {
                 result.Error = "Separator is either missing or misplaced!";
                 return result;
             }
             // Check characters
-            if (btcAddress.Substring(separatorPos + 1).ToList().Any(x => !CharSet.Contains(x)))
+            if (grsAddress.Substring(separatorPos + 1).ToList().Any(x => !CharSet.Contains(x)))
             {
                 result.Error = "Invalid characters!";
                 return result;
             }
             // Check Human Readable Part
-            string hrpGot = btcAddress.Substring(0, separatorPos);
+            string hrpGot = grsAddress.Substring(0, separatorPos);
             if (!hrp.Equals(hrpGot))
             {
                 result.Error = "Invalid Human Readable Part!";
@@ -143,7 +143,7 @@ namespace BitcoinLibrary
             }
 
 
-            string dataStr = btcAddress.Substring(separatorPos + 1);
+            string dataStr = grsAddress.Substring(separatorPos + 1);
             byte[] dataBa = new byte[dataStr.Length];
             for (int i = 0; i < dataStr.Length; i++)
             {

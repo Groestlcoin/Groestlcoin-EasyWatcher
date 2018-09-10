@@ -1,6 +1,6 @@
 ﻿using MVVMLibrary;
 
-namespace WatchOnlyBitcoinWallet.Models
+namespace WatchOnlyGroestlcoinWallet.Models
 {
     public class Transaction : CommonBase
     {

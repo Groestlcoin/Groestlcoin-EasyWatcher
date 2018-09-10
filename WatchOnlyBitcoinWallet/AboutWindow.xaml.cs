@@ -4,20 +4,19 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 using System.Reflection;
 
-namespace WatchOnlyBitcoinWallet
+namespace WatchOnlyGroestlcoinWallet
 {
     /// <summary>
     /// Interaction logic for AboutWindow.xaml
     /// </summary>
     public partial class AboutWindow : Window
     {
-        private const string DonationAddress = "1Q9swRQuwhTtjZZ2yguFWk7m7pszknkWyk";
+        private const string DonationAddress = "FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa";
 
         public AboutWindow()
         {
             InitializeComponent();
-            DonationHyperLink.NavigateUri = new System.Uri(string.Format("bitcoin:{0}", DonationAddress));
-            txtVersion.Text = string.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
+            DonationHyperLink.NavigateUri = new System.Uri($"groestlcoin:{DonationAddress}");
             txtDonate.Text = DonationAddress;
         }
 

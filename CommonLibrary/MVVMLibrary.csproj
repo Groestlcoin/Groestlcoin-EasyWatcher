@@ -53,9 +53,9 @@
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BitcoinLibrary\BitcoinLibrary.csproj">
+    <ProjectReference Include="..\BitcoinLibrary\GroestlcoinLibrary.csproj">
       <Project>{8fcc2c76-56f8-465f-b467-a21cf487b4ea}</Project>
-      <Name>BitcoinLibrary</Name>
+      <Name>GroestlcoinLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

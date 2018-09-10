@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WatchOnlyBitcoinWallet.Models;
+using WatchOnlyGroestlcoinWallet.Models;
 
-namespace WatchOnlyBitcoinWallet.Services
+namespace WatchOnlyGroestlcoinWallet.Services
 {
     public enum PriceServiceNames
     {
@@ -13,11 +13,7 @@ namespace WatchOnlyBitcoinWallet.Services
     }
     public enum BalanceServiceNames
     {
-        BlockchainInfo,
-        BlockExplorer,
-        BlockCypher,
-        Blockonomics,
-        ChainzInfo
+        Chainz
     }
 
     public abstract class Api
@@ -49,9 +45,9 @@ namespace WatchOnlyBitcoinWallet.Services
 
     public abstract class BalanceApi : Api
     {
-        public abstract Task<Response> UpdateBalancesAsync(List<BitcoinAddress> addrList);
+        public abstract Task<Response> UpdateBalancesAsync(List<GroestlcoinAddress> addrList);
 
-        public abstract Task<Response> UpdateTransactionListAsync(List<BitcoinAddress> addrList);
+        public abstract Task<Response> UpdateTransactionListAsync(List<GroestlcoinAddress> addrList);
 
         internal decimal Satoshi = 0.00000001m;
     }

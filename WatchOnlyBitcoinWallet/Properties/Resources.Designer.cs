@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WatchOnlyBitcoinWallet.Properties {
+namespace WatchOnlyGroestlcoinWallet.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WatchOnlyBitcoinWallet.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WatchOnlyBitcoinWallet.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WatchOnlyGroestlcoinWallet.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WatchOnlyBitcoinWallet.Models;
+using WatchOnlyGroestlcoinWallet.Models;
 
-namespace WatchOnlyBitcoinWallet.Services.BalanceServices {
-    public class ChainzInfo : BalanceApi {
-        public override async Task<Response> UpdateBalancesAsync(List<BitcoinAddress> addrList) {
+namespace WatchOnlyGroestlcoinWallet.Services.BalanceServices {
+    public class Chainz : BalanceApi {
+        public override async Task<Response> UpdateBalancesAsync(List<GroestlcoinAddress> addrList) {
             Response resp = new Response();
             foreach (var addr in addrList) {
                 string url = "http://chainz.cryptoid.info/grs/api.dws?q=getbalance&a=" + addr.Address;
@@ -37,7 +37,7 @@ namespace WatchOnlyBitcoinWallet.Services.BalanceServices {
             return resp;
         }
 
-        public override Task<Response> UpdateTransactionListAsync(List<BitcoinAddress> addrList) {
+        public override Task<Response> UpdateTransactionListAsync(List<GroestlcoinAddress> addrList) {
             throw new System.NotImplementedException();
         }
 

@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WatchOnlyBitcoinWallet")]
+[assembly: AssemblyTitle("WatchOnlyGroestlcoinWallet")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Coding Enthusiast Coders")]
-[assembly: AssemblyProduct("WatchOnlyBitcoinWallet")]
+[assembly: AssemblyProduct("WatchOnlyGroestlcoinWallet")]
 [assembly: AssemblyCopyright("Copyright © C.E. 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BitcoinLibrary")]
+[assembly: AssemblyTitle("GroestlcoinLibrary")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Coding Enthusiast Coders")]
-[assembly: AssemblyProduct("BitcoinLibrary")]
+[assembly: AssemblyProduct("GroestlcoinLibrary")]
 [assembly: AssemblyCopyright("Copyright © C.E. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -36,4 +36,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 // Make this assembly visible for unit testing
-[assembly: InternalsVisibleTo("BitcoinLibraryTests")]
+[assembly: InternalsVisibleTo("GroestlcoinLibraryTests")]

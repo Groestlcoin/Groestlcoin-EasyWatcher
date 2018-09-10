@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace WatchOnlyBitcoinWallet.Services
+namespace WatchOnlyGroestlcoinWallet.Services
 {
     public static class DataManager
     {
         static DataManager()
         {
-            mainFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\C.E. Watch Only Bitcoin Wallet";
+            mainFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\C.E. Watch Only Groestlcoin Wallet";
         }
 
 

@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchOnlyBitcoinWallet", "WatchOnlyBitcoinWallet\WatchOnlyBitcoinWallet.csproj", "{3E275526-08A4-4B6B-8E69-9C6194198220}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchOnlyGroestlcoinWallet", "WatchOnlyBitcoinWallet\WatchOnlyGroestlcoinWallet.csproj", "{3E275526-08A4-4B6B-8E69-9C6194198220}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMLibrary", "CommonLibrary\MVVMLibrary.csproj", "{3B31423A-CC27-44BB-9D19-A5DA92D0326D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitcoinLibrary", "BitcoinLibrary\BitcoinLibrary.csproj", "{8FCC2C76-56F8-465F-B467-A21CF487B4EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlcoinLibrary", "BitcoinLibrary\GroestlcoinLibrary.csproj", "{8FCC2C76-56F8-465F-B467-A21CF487B4EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitcoinLibraryTests", "BitcoinLibraryTests\BitcoinLibraryTests.csproj", "{9948D343-8D56-45C0-9809-7664D8953563}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlcoinLibraryTests", "BitcoinLibraryTests\GroestlcoinLibraryTests.csproj", "{9948D343-8D56-45C0-9809-7664D8953563}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

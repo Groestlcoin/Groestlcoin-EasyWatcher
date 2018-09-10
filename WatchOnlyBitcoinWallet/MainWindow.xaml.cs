@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WatchOnlyBitcoinWallet
+namespace WatchOnlyGroestlcoinWallet
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

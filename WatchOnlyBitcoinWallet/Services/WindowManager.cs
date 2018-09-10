@@ -1,9 +1,9 @@
 ﻿using MVVMLibrary;
 using System.Windows;
-using WatchOnlyBitcoinWallet.ViewModels;
-using WatchOnlyBitcoinWallet.Views;
+using WatchOnlyGroestlcoinWallet.ViewModels;
+using WatchOnlyGroestlcoinWallet.Views;
 
-namespace WatchOnlyBitcoinWallet.Services
+namespace WatchOnlyGroestlcoinWallet.Services
 {
     public interface IWindowManager
     {

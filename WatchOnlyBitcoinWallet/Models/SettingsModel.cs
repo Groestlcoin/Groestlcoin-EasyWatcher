@@ -1,11 +1,11 @@
 ﻿using MVVMLibrary;
-using WatchOnlyBitcoinWallet.Services;
+using WatchOnlyGroestlcoinWallet.Services;
 
-namespace WatchOnlyBitcoinWallet.Models
+namespace WatchOnlyGroestlcoinWallet.Models
 {
     public class SettingsModel : CommonBase
     {
-        public decimal BitcoinPriceInUSD { get; set; }
+        public decimal GroestlcoinPriceInUSD { get; set; }
         public decimal DollarPriceInLocalCurrency { get; set; }
         public string LocalCurrencySymbol { get; set; }
         public BalanceServiceNames SelectedBalanceApi { get; set; }

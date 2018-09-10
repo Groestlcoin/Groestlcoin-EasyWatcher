@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WatchOnlyBitcoinWallet.Services
+namespace WatchOnlyGroestlcoinWallet.Services
 {
     public class ErrorCollection : IReadOnlyCollection<string>
     {

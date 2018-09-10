@@ -6,8 +6,8 @@
     <ProjectGuid>{9948D343-8D56-45C0-9809-7664D8953563}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BitcoinLibraryTests</RootNamespace>
-    <AssemblyName>BitcoinLibraryTests</AssemblyName>
+    <RootNamespace>GroestlcoinLibraryTests</RootNamespace>
+    <AssemblyName>GroestlcoinLibraryTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -56,9 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BitcoinLibrary\BitcoinLibrary.csproj">
+    <ProjectReference Include="..\BitcoinLibrary\GroestlcoinLibrary.csproj">
       <Project>{8fcc2c76-56f8-465f-b467-a21cf487b4ea}</Project>
-      <Name>BitcoinLibrary</Name>
+      <Name>GroestlcoinLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

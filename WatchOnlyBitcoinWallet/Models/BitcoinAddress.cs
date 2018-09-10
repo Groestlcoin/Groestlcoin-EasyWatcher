@@ -2,9 +2,9 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace WatchOnlyBitcoinWallet.Models
+namespace WatchOnlyGroestlcoinWallet.Models
 {
-    public class BitcoinAddress : ValidatableBase
+    public class GroestlcoinAddress : ValidatableBase
     {
         private string name;
         /// <summary>

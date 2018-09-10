@@ -1,10 +1,10 @@
-﻿using BitcoinLibrary;
+﻿using GroestlcoinLibrary;
 using MVVMLibrary;
 using System;
 using System.Collections.Generic;
-using WatchOnlyBitcoinWallet.Models;
+using WatchOnlyGroestlcoinWallet.Models;
 
-namespace WatchOnlyBitcoinWallet.ViewModels
+namespace WatchOnlyGroestlcoinWallet.ViewModels
 {
     public class ImportViewModel : ViewModelBase
     {
@@ -23,7 +23,7 @@ namespace WatchOnlyBitcoinWallet.ViewModels
         }
 
 
-        public List<BitcoinAddress> AddressList { get; set; }
+        public List<GroestlcoinAddress> AddressList { get; set; }
 
 
         private string importText;
@@ -44,7 +44,7 @@ namespace WatchOnlyBitcoinWallet.ViewModels
             }
             else
             {
-                List<BitcoinAddress> temp = new List<BitcoinAddress>();
+                List<GroestlcoinAddress> temp = new List<GroestlcoinAddress>();
                 int lineNum = 0;
                 foreach (var item in ImportText.SplitToLines())
                 {
@@ -52,7 +52,7 @@ namespace WatchOnlyBitcoinWallet.ViewModels
                     VerificationResult vr = ValidateAddr(item);
                     if (vr.IsVerified)
                     {
-                        temp.Add(new BitcoinAddress() { Address = item });
+                        temp.Add(new GroestlcoinAddress() { Address = item });
                     }
                     else
                     {
@@ -70,7 +70,7 @@ namespace WatchOnlyBitcoinWallet.ViewModels
         private VerificationResult ValidateAddr(string addr)
         {
             VerificationResult vr = new VerificationResult();
-            if (addr.StartsWith("bc1"))
+            if (addr.StartsWith("grs1"))
             {
                 vr = SegWitAddress.Verify(addr, SegWitAddress.NetworkType.MainNet);
             }

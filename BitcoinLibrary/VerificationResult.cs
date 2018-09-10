@@ -1,4 +1,4 @@
-﻿namespace BitcoinLibrary
+﻿namespace GroestlcoinLibrary
 {
     public class VerificationResult
     {

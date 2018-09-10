@@ -1,8 +1,8 @@
-﻿<Window x:Class="WatchOnlyBitcoinWallet.Views.SettingsWindow"
+﻿<Window x:Class="WatchOnlyGroestlcoinWallet.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mvvm="clr-namespace:MVVMLibrary;assembly=MVVMLibrary"
-        Title="Settings" Width="286" FontSize="14" Icon="/WatchOnlyBitcoinWallet;component/myICO.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" SizeToContent="Height">
+        Title="Settings" Width="340" FontSize="14" Icon="/WatchOnlyGroestlcoinWallet;component/myICO.ico" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" SizeToContent="Height">
     <Window.Resources>
         <mvvm:BooleanToVisibilityConverter x:Key="visibilityConverter"/>
     </Window.Resources>
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding BitcoinPrice, UpdateSourceTrigger=PropertyChanged}" Margin="3" Grid.Column="0"/>
+            <TextBox Text="{Binding GroestlcoinPrice, UpdateSourceTrigger=PropertyChanged}" Margin="3" Grid.Column="0"/>
             <Button Content="Update" Command="{Binding UpdatePriceCommand}" Margin="3" Grid.Column="1"/>
         </Grid>
 

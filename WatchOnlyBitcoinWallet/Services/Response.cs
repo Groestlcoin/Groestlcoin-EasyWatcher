@@ -1,4 +1,4 @@
-﻿namespace WatchOnlyBitcoinWallet.Services
+﻿namespace WatchOnlyGroestlcoinWallet.Services
 {
     public class Response<T> : Response
     {
