@@ -25,5 +25,6 @@ Then review the code and leave your feedback.
 
 [Donate: FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa](groestlcoin:FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa)  
 
+![QrDonate](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa)
 
 Special thanks to Coding Enthusiast.
