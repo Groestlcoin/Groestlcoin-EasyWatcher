@@ -15,7 +15,7 @@ namespace GroestlcoinLibrary {
                 return result;
             }
             if (!grsAddress.StartsWith("F") && !grsAddress.StartsWith("3")) {
-                result.Error = "Groestlcoin Base58 address starts with 1 or 3!";
+                result.Error = "Groestlcoin Base58 address starts with F or 3!";
                 return result;
             }
             try {
