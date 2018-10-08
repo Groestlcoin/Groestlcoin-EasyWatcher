@@ -6,12 +6,16 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Windows.Threading;
 using WatchOnlyGroestlcoinWallet.Models;
 using WatchOnlyGroestlcoinWallet.Services;
 using WatchOnlyGroestlcoinWallet.Services.BalanceServices;
 
 namespace WatchOnlyGroestlcoinWallet.ViewModels {
     public class MainWindowViewModel : ViewModelBase {
+        private DispatcherTimer refreshTimer;
+
         public MainWindowViewModel() {
             AddressList = new BindingList<GroestlcoinAddress>(DataManager.ReadFile<List<GroestlcoinAddress>>(DataManager.FileType.Wallet));
             AddressList.ListChanged += AddressList_ListChanged;
@@ -24,8 +28,17 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             ImportFromTextCommand = new BindableCommand(ImportFromText);
             ImportFromFileCommand = new BindableCommand(ImportFromFile);
 
+            refreshTimer = new DispatcherTimer();
+            refreshTimer.Interval = new TimeSpan(0, 5, 0);
+            refreshTimer.Tick += RefreshBalances;
+            refreshTimer.Start();
+
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            VersionString = string.Format("Version {0}.{1}.{2}", ver.Major, ver.Minor, ver.Build);
+            VersionString = $"Version {ver.Major}.{ver.Minor}.{ver.Build}";
+        }
+
+        void RefreshBalances(object state, EventArgs e) {
+            GetBalance();
         }
 
 
@@ -45,6 +58,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             }
         }
 
+        public DateTime LastUpdated { get; set; }
 
         /// <summary>
         /// Indicating an active connection.
@@ -189,6 +203,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                 else {
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
                     RaisePropertyChanged("GroestlcoinBalance");
+                    LastUpdated = DateTime.Now;
                     Status = "Balance Update Success!";
                 }
             }
@@ -201,10 +216,11 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                 else {
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
                     RaisePropertyChanged("GroestlcoinBalance");
+                    LastUpdated = DateTime.Now;
                     Status = "Balance Update Success!";
                 }
             }
-
+            Status += $" - Last Updated: {LastUpdated.ToShortDateString()} {LastUpdated.ToShortTimeString()}";
             IsReceiving = false;
         }
 
