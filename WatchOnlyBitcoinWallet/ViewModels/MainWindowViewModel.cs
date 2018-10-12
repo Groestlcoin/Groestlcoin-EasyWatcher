@@ -175,6 +175,9 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                 case BalanceServiceNames.Chainz:
                     api = new Chainz();
                     break;
+                case BalanceServiceNames.Insight:
+                    api = new Insight();
+                    break;
                 default:
                     api = new Chainz();
                     break;

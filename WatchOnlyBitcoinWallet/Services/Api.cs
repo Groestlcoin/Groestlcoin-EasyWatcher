@@ -11,7 +11,8 @@ namespace WatchOnlyGroestlcoinWallet.Services {
         CoinMarketCap
     }
     public enum BalanceServiceNames {
-        Chainz
+        Chainz,
+        Insight
     }
 
     public abstract class Api {
