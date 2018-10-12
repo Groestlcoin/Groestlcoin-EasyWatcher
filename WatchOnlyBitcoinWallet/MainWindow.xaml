@@ -151,7 +151,18 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <Button Content="Update Balances" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Command="{Binding GetBalanceCommand}" Height="35" Margin="3" Grid.ColumnSpan="2" Grid.Row="0"/>
+                            <Button Style="{DynamicResource MaterialDesignRaisedDarkButton}" Command="{Binding GetBalanceCommand}" Height="35" Margin="3" Grid.ColumnSpan="2" Grid.Row="0">
+                                <Button.Content>
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Kind="Update" Grid.Column="0" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                        <TextBlock Grid.Column="1" VerticalAlignment="Center">Update Balances</TextBlock>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
 
                             <TextBlock Text="Ǥ  " Grid.Column="0" Grid.Row="1"/>
                             <TextBlock Text="$  " Grid.Column="0" Grid.Row="2"/>

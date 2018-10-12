@@ -13,6 +13,8 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             PriceApiList = new ObservableCollection<PriceServiceNames>((PriceServiceNames[])Enum.GetValues(typeof(PriceServiceNames)));
 
             UpdatePriceCommand = new BindableCommand(UpdatePrice, () => !IsReceiving);
+
+            RaisePropertyChanged("ConversionRateLabelText");
         }
 
 
@@ -31,7 +33,17 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         }
         private bool isReceiving;
 
+        private string conversionRateLabelText;
+        public string ConversionRateLabelText {
+            get {
+                return conversionRateLabelText;
+            }
+            set {
+                conversionRateLabelText = value;
+                RaisePropertyChanged("ConversionRateLabelText");
+            }
 
+        }
         public ObservableCollection<BalanceServiceNames> BalanceApiList { get; set; }
 
         public ObservableCollection<PriceServiceNames> PriceApiList { get; set; }
@@ -88,12 +100,16 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         }
 
         public string LocalCurrencySymbol {
-            get { return Settings.LocalCurrencySymbol; }
+            get {
+                ConversionRateLabelText = $"USD to {Settings.LocalCurrencySymbol} Rate: ";
+                return Settings.LocalCurrencySymbol;
+            }
             set {
                 if (Settings.LocalCurrencySymbol != value) {
                     Settings.LocalCurrencySymbol = value;
                     RaisePropertyChanged("LocalCurrencySymbol");
                 }
+                RaisePropertyChanged("ConversionRateLabelText");
             }
         }
 
