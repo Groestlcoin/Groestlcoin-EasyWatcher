@@ -89,6 +89,7 @@
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Services\Api.cs" />
+    <Compile Include="Services\BalanceServices\Insight.cs" />
     <Compile Include="Services\BalanceServices\Chainz.cs" />
     <Compile Include="Services\DataManager.cs" />
     <Compile Include="Services\ErrorCollection.cs" />
