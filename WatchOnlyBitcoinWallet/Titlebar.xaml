@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="WatchOnlyGroestlcoinWallet.Titlebar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WatchOnlyGroestlcoinWallet"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             TextElement.FontWeight="Regular" TextElement.FontSize="13" TextOptions.TextFormattingMode="Ideal" TextOptions.TextRenderingMode="Auto" d:DesignHeight="25" d:DesignWidth="500" Height="Auto">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel>
+        <Border Background="Transparent" CornerRadius="5" DockPanel.Dock="Top" Height="25" x:Name="TitleBar" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" FontFamily="Impact" FontWeight="ExtraBold" Background="Transparent"  BorderThickness="0" Padding="2" Width="20" Click="Button_Click" Name="uxMinimiseBtn" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="WindowMinimize" Foreground="{DynamicResource MaterialDesignBody}"/>
+                    </Button.Content>
+                </Button>
+                <Button Name="uxAboutBtn" Grid.Column="1" Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="ButtonBase_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <Hyperlink x:Name="lnkGit" NavigateUri="https://github.com/Groestlcoin/Groestlcoin-EasyWatcher"
+                               RequestNavigate="LnkGit_OnRequestNavigate" >
+                        <materialDesign:PackIcon Kind="CommentQuestion" Foreground="{DynamicResource MaterialDesignBody}" />
+                    </Hyperlink>
+                </Button>
+                <Button Grid.Column="2" Name="UxCloseBtn"  Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="UxCloseBtn_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="WindowClose"  Foreground="{DynamicResource MaterialDesignBody}"/>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>

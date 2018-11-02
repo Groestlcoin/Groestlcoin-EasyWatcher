@@ -1,4 +1,4 @@
-﻿<Window x:Name="windowMain" x:Class="WatchOnlyGroestlcoinWallet.MainWindow"
+﻿<Window x:Name="windowMain2" x:Class="WatchOnlyGroestlcoinWallet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:WatchOnlyGroestlcoinWallet.ViewModels"
