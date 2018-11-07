@@ -21,11 +21,11 @@ namespace MVVMLibrary
             }
             else if (number >= 0)
             {
-                return Brushes.LightGreen;
+                return Brushes.Green;
             }
             else
             {
-                return Brushes.Orange;
+                return Brushes.DarkOrange;
             }
         }
 
