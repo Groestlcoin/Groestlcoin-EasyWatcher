@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Windows.Documents;
 
 namespace WatchOnlyGroestlcoinWallet.Services
 {
@@ -9,7 +10,7 @@ namespace WatchOnlyGroestlcoinWallet.Services
     {
         static DataManager()
         {
-            mainFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\C.E. Watch Only Groestlcoin Wallet";
+            mainFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Groestlcoin Sentinel Wallet";
         }
 
 
@@ -27,7 +28,6 @@ namespace WatchOnlyGroestlcoinWallet.Services
         /// </summary>
         /// <typeparam name="T">Type of the file being read.</typeparam>
         /// <param name="f">Name of the folder containing file to read.</param>
-        /// <param name="fileName">Name of the file to read.</param>
         /// <returns>Read data.</returns>
         public static T ReadFile<T>(FileType f)
         {
@@ -44,18 +44,12 @@ namespace WatchOnlyGroestlcoinWallet.Services
             T result;
             if (File.Exists(myFilePath))
             {
-                using (StreamReader st = File.OpenText(myFilePath))
-                {
-                    JsonSerializer ser = new JsonSerializer();
-                    result = (T)ser.Deserialize(st, typeof(T));
+                using (StreamReader st = File.OpenText(myFilePath)){
+                    result = (T)JsonConvert.DeserializeObject(st.ReadToEnd(), typeof(T));
                 }
-
                 return result;
             }
-            else
-            {
-                return (T)Activator.CreateInstance(typeof(T));
-            }
+            return (T)Activator.CreateInstance(typeof(T));
         }
 
 
@@ -65,7 +59,6 @@ namespace WatchOnlyGroestlcoinWallet.Services
         /// <typeparam name="T">Type of the data to save.</typeparam>
         /// <param name="dataToSave">Data to save.</param>
         /// <param name="f">Name of the folder to place the file.</param>
-        /// <param name="fileName">Name of the file to save to.</param>
         public static void WriteFile<T>(T dataToSave, FileType f)
         {
             string myFilePath = string.Empty;
@@ -84,10 +77,9 @@ namespace WatchOnlyGroestlcoinWallet.Services
                 Directory.CreateDirectory(mainFolderPath);
             }
 
-            using (StreamWriter str = File.CreateText(myFilePath))
-            {
-                JsonSerializer ser = new JsonSerializer();
-                ser.Serialize(str, dataToSave);
+            using (StreamWriter str = File.CreateText(myFilePath)){
+                string json = JsonConvert.SerializeObject(dataToSave, Formatting.Indented);
+                str.Write(json);
             }
         }
 

@@ -35,7 +35,7 @@ namespace MVVMLibrary
 
 
         /// <summary>
-        /// Dictonary of properties which have a dependant property.
+        /// Dictionary of properties which have a dependent property.
         /// </summary>
         protected readonly Dictionary<string, List<string>> PropertyDependencyMap;
 
@@ -58,7 +58,7 @@ namespace MVVMLibrary
                 // Raise the PropertyChanged event.
                 handler(this, new PropertyChangedEventArgs(propertyName));
 
-                // Raise the PropertyChanged event for dependant properties too.
+                // Raise the PropertyChanged event for dependent properties too.
                 if (PropertyDependencyMap.ContainsKey(propertyName))
                 {
                     foreach (var p in PropertyDependencyMap[propertyName])
@@ -71,7 +71,7 @@ namespace MVVMLibrary
 
         /// <summary>
         /// Sets the value of a property.
-        /// <para/> Returs false if value didn't change.
+        /// <para/> Returns false if value didn't change.
         /// </summary>
         /// <typeparam name="T">Type of the field</typeparam>
         /// <param name="field">Field to change value of</param>

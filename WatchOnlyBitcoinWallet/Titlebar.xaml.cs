@@ -53,7 +53,7 @@ namespace WatchOnlyGroestlcoinWallet
 
         private void UxCloseBtn_OnClick(object sender, RoutedEventArgs e) {
             if (IsMainWindow) {
-                Application.Current.Shutdown();
+                Window.GetWindow(this)?.Close();
             }
             else {
                 Window.GetWindow(this)?.Hide();
@@ -74,14 +74,6 @@ namespace WatchOnlyGroestlcoinWallet
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e) {
             
         }
-
-        public bool isDark { get; set; } = true;
-
-        public class ThemeChangeClickEventArgs : EventArgs {
-            public string Tag { get; set; }
-        }
-        public event EventHandler<ThemeChangeClickEventArgs> Clicked;
-
 
         private void LnkGit_OnRequestNavigate(object sender, RequestNavigateEventArgs e) {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));

@@ -102,6 +102,7 @@ namespace GroestlcoinLibrary
             VerificationResult result = new VerificationResult() { IsVerified = false };
 
             string hrp = (nt == NetworkType.MainNet) ? "grs" : "tgrs";
+
             if (!grsAddress.StartsWith(hrp, StringComparison.InvariantCultureIgnoreCase))
             {
                 result.Error = "Invalid Human Readable Part!";
