@@ -23,5 +23,16 @@ namespace WatchOnlyGroestlcoinWallet.Views
         {
             InitializeComponent();
         }
+        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this?.DragMove();
+            }
+            catch
+            {
+                //Ignored
+            }
+        }
     }
 }

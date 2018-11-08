@@ -16,7 +16,6 @@ namespace WatchOnlyGroestlcoinWallet
         public AboutWindow()
         {
             InitializeComponent();
-            DonationHyperLink.NavigateUri = new System.Uri($"groestlcoin:{DonationAddress}");
             txtDonate.Text = DonationAddress;
         }
 

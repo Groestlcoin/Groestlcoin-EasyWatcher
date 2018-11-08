@@ -18,6 +18,21 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.LightBlue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <DrawingBrush x:Key="Background">
+                <DrawingBrush.Drawing>
+                    <GeometryDrawing Geometry="F1 M888,545.99 C888,545.995 887.995,546 887.99,546 L0.01,546 C0.004,546 0,545.995 0,545.99 L0,0.01 C0,0.004 0.004,0 0.01,0 L887.99,0 C887.995,0 888,0.004 888,0.01 L888,545.99 z">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush EndPoint="843,591" MappingMode="Absolute" StartPoint="40,-50">
+                                <GradientStop Color="#FF003EA6" Offset="0"/>
+                                <GradientStop Color="#FF579FFF" Offset="0.6837"/>
+                                <GradientStop Color="#FF0038A9" Offset="0.9987"/>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
+
             <!--Scrollbar Thumbs-->
             <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
                 <Setter Property="Template">
@@ -108,26 +123,26 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type DataGridRow}">
-                                <SelectiveScrollingGrid>
-                                    <SelectiveScrollingGrid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </SelectiveScrollingGrid.ColumnDefinitions>
-                                    <SelectiveScrollingGrid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </SelectiveScrollingGrid.RowDefinitions>
-                                    <DataGridCellsPresenter Grid.Column="1"
+                            <SelectiveScrollingGrid>
+                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                <SelectiveScrollingGrid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </SelectiveScrollingGrid.RowDefinitions>
+                                <DataGridCellsPresenter Grid.Column="1"
                                                 ItemsPanel="{TemplateBinding ItemsPanel}"
                                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    <DataGridDetailsPresenter Grid.Column="1"
+                                <DataGridDetailsPresenter Grid.Column="1"
                                                   Grid.Row="1"
                                                   SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                   Visibility="{TemplateBinding DetailsVisibility}" />
-                                    <DataGridRowHeader Grid.RowSpan="2"
+                                <DataGridRowHeader Grid.RowSpan="2"
                                            SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                </SelectiveScrollingGrid>
+                            </SelectiveScrollingGrid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Background" Value="White"/>

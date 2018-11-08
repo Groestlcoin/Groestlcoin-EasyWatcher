@@ -3,175 +3,161 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:WatchOnlyGroestlcoinWallet.ViewModels"
         xmlns:mvvm="clr-namespace:MVVMLibrary;assembly=MVVMLibrary"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" BorderThickness="2"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" BorderThickness="2" Background="{StaticResource Background}"
         xmlns:watchOnlyGroestlcoinWallet="clr-namespace:WatchOnlyGroestlcoinWallet" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="MainWindowCopy_OnMouseLeftButtonDown"
-        Title="Groestlcoin Sentinel" Height="348" MinHeight="342" MaxHeight="600" Width="740" MinWidth="720" MaxWidth="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="14" Icon="myICO.ico">
+        Title="Groestlcoin Sentinel" Height="348" MinHeight="342" MaxHeight="600" Width="800" MinWidth="720" MaxWidth="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="14" Icon="myICO.ico">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+<Window.Effect>
+        <DropShadowEffect BlurRadius="25" Direction="-90" RenderingBias="Quality" ShadowDepth="5" Color="#0e2651"/>
+    </Window.Effect>
 
     <Window.Resources>
         <mvvm:NumberToColorConverter x:Key="numToColorConverter"/>
         <mvvm:StringNullOrEmptyBoolConverter x:Key="NullOrEmptyBoolConverter"></mvvm:StringNullOrEmptyBoolConverter>
     </Window.Resources>
-
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="About_Click"/>
     </Window.CommandBindings>
-
     <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand, Mode=OneWay}" />
         <KeyBinding Key="F2" Command="{Binding SettingsCommand}"/>
         <KeyBinding Key="F1" Command="New"/>
     </Window.InputBindings>
-    <materialDesign:DialogHost>
-        <Grid>
-            <Grid.Background>
-                <DrawingBrush Viewbox="0,0,888,546" ViewboxUnits="Absolute">
-                    <DrawingBrush.Drawing>
-                        <GeometryDrawing Geometry="F1 M888,545.99 C888,545.995 887.995,546 887.99,546 L0.01,546 C0.004,546 0,545.995 0,545.99 L0,0.01 C0,0.004 0.004,0 0.01,0 L887.99,0 C887.995,0 888,0.004 888,0.01 L888,545.99 z">
-                            <GeometryDrawing.Brush>
-                                <LinearGradientBrush EndPoint="843,591" MappingMode="Absolute" StartPoint="40,-50">
-                                    <GradientStop Color="#FF003EA6" Offset="0"/>
-                                    <GradientStop Color="#FF579FFF" Offset="0.6837"/>
-                                    <GradientStop Color="#FF0038A9" Offset="0.9987"/>
-                                </LinearGradientBrush>
-                            </GeometryDrawing.Brush>
-                        </GeometryDrawing>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="165px"/>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Border Grid.Column="0" Grid.RowSpan="4" BorderBrush="LightGray" BorderThickness="0 0 2 0">
-                <Border.Effect>
-                    <BlurEffect Radius="5"></BlurEffect>
-                </Border.Effect>
-            </Border>
-            <Grid Grid.Column="0" Grid.RowSpan="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#0e2651">
+    <Border BorderThickness="0" CornerRadius="2" BorderBrush="White">
+        <materialDesign:DialogHost>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="165px"/>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="1">
-                    <Image Source="GRS-logo-64.png" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Image>
-                    <TextBlock FontFamily="Verdana" FontWeight="UltraBlack" Foreground="#0091B9" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0 0 0 -2">GROESTLCOIN</TextBlock>
-                    <TextBlock FontFamily="Verdana"  Foreground="White" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0" Text="SENTINEL">
-                        <TextBlock.RenderTransform>
-                            <ScaleTransform ScaleY="0.5"></ScaleTransform>
-                        </TextBlock.RenderTransform>
-                    </TextBlock>
-                    <Separator Background="WhiteSmoke" Height="1" HorizontalAlignment="Stretch" Margin="10 0 10 0">
-                        <Separator.Effect>
-                            <BlurEffect Radius="2"></BlurEffect>
-                        </Separator.Effect>
-                    </Separator>
-                    <StackPanel HorizontalAlignment="Stretch">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Padding="8 2 8 2" Style="{DynamicResource MaterialDesignFlatButton}">
-                                <Button.Content>
-                                    <materialDesign:PackIcon Kind="File"  Foreground="WhiteSmoke"  Height="24" Width="24"/>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="8 2 8 2" Style="{DynamicResource MaterialDesignFlatButton}">
-                                <Button.Content>
-                                    <materialDesign:PackIcon Kind="Textbox"  Foreground="WhiteSmoke"  Height="24" Width="24"/>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="8 2 8 2"  Style="{DynamicResource MaterialDesignFlatButton}"  Command="{Binding SettingsCommand, Mode=OneWay}">
-                                <Button.Content>
-                                    <materialDesign:PackIcon Kind="Settings" Foreground="WhiteSmoke" Height="24" Width="24"></materialDesign:PackIcon>
-                                </Button.Content>
-                            </Button>
-                            <Button Padding="8 2 8 2" Style="{DynamicResource MaterialDesignFlatButton}">
-                                <Button.Content>
-                                    <materialDesign:PackIcon Kind="HelpCircle"  Foreground="WhiteSmoke"  Height="24" Width="24"/>
-                                </Button.Content>
-                            </Button>
+
+                <Border Grid.Column="0" Grid.RowSpan="4" BorderBrush="LightGray" BorderThickness="0 0 2 0">
+                    <Border.Effect>
+                        <BlurEffect Radius="1"></BlurEffect>
+                    </Border.Effect>
+                </Border>
+                <Grid Grid.Column="0" Grid.RowSpan="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#0e2651">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1">
+                        <Image Source="GRS-logo-64.png" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Image>
+                        <TextBlock FontFamily="Verdana" FontWeight="UltraBlack" Foreground="#0091B9" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0 0 0 -2">GROESTLCOIN</TextBlock>
+                        <TextBlock FontFamily="Verdana"  Foreground="White" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0" Text="SENTINEL">
+                            <TextBlock.RenderTransform>
+                                <ScaleTransform ScaleY="0.5"></ScaleTransform>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <Separator Background="WhiteSmoke" Height="1" HorizontalAlignment="Stretch" Margin="10 0 10 0">
+                            <Separator.Effect>
+                                <BlurEffect Radius="2"></BlurEffect>
+                            </Separator.Effect>
+                        </Separator>
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Padding="8 2 8 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromFileCommand, Mode=OneWay}">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="File"  Foreground="WhiteSmoke"  Height="24" Width="24"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Padding="8 2 8 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromTextCommand, Mode=OneWay}">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="Textbox"  Foreground="WhiteSmoke"  Height="24" Width="24"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Padding="8 2 8 2"  Style="{DynamicResource MaterialDesignFlatButton}"  Command="{Binding SettingsCommand, Mode=OneWay}">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="Settings" Foreground="WhiteSmoke" Height="24" Width="24"></materialDesign:PackIcon>
+                                    </Button.Content>
+                                </Button>
+                                <Button Padding="8 2 8 2" Style="{DynamicResource MaterialDesignFlatButton}" Click="About_Click">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="HelpCircle"  Foreground="WhiteSmoke"  Height="24" Width="24"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
+                        <Separator Background="LightGray" HorizontalAlignment="Stretch" Margin="10 0 10 0">
+                            <Separator.Effect>
+                                <BlurEffect Radius="2"></BlurEffect>
+                            </Separator.Effect>
+                        </Separator>
                     </StackPanel>
-                    <Separator Background="LightGray" HorizontalAlignment="Stretch" Margin="10 0 10 0">
-                        <Separator.Effect>
-                            <BlurEffect Radius="2"></BlurEffect>
-                        </Separator.Effect>
-                    </Separator>
-                </StackPanel>
-            </Grid>
-            <watchOnlyGroestlcoinWallet:Titlebar Grid.Row="0" HorizontalAlignment="Stretch" x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></watchOnlyGroestlcoinWallet:Titlebar>
-            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
-                <Border Background="#800e2651" Margin="5" CornerRadius="5">
+                </Grid>
+                <watchOnlyGroestlcoinWallet:Titlebar Grid.Row="0" HorizontalAlignment="Stretch" x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></watchOnlyGroestlcoinWallet:Titlebar>
+                <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                    <Border Background="#800e2651" Margin="5" CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">GRS</Label>
+                                <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N8\}}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">USD</Label>
+                                <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
+                                <Label Content="{Binding SettingsInstance.LocalCurrencySymbol}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
+                                <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
+                            </StackPanel>
+                            <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
+                                <Button.Content>
+                                    <StackPanel VerticalAlignment="Stretch">
+                                        <materialDesign:PackIcon Kind="Refresh" Height="32" Width="32" HorizontalAlignment="Center" Foreground="White" />
+                                        <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Normal">Refresh</Label>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Border Background="#800e2651" Margin="5" CornerRadius="5" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="8*"/>
-                            <ColumnDefinition Width="4.5*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">GRS</Label>
-                            <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">USD</Label>
-                            <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
-                            <Label Content="{Binding SettingsInstance.LocalCurrencySymbol}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
-                            <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
-                        </StackPanel>
-                        <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
-                            <Button.Content>
-                                <StackPanel VerticalAlignment="Stretch">
-                                    <materialDesign:PackIcon Kind="Refresh" Height="32" Width="32" HorizontalAlignment="Center" Foreground="White" />
-                                    <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Normal">Refresh</Label>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
+                        <DataGrid ItemsSource="{Binding AddressList}" Background="Transparent" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="True" CanUserSortColumns="True" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
+                            <DataGrid.Resources>
+                                <SolidColorBrush x:Key="MaterialDesignSelection" Color="#20FFFFFF"  />
+                            </DataGrid.Resources>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Columns>
+                                <materialDesign:MaterialDataGridTextColumn Header="Name" Binding="{Binding Name, Mode=TwoWay}" MinWidth="50" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                <materialDesign:MaterialDataGridTextColumn Header="Address" MinWidth="300" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                <DataGridTemplateColumn Header="Balance" MinWidth="50">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </Grid>
                 </Border>
+                <StatusBar Grid.Row="4" Background="#500e2651" Grid.Column="1">
+                    <TextBlock Text="{Binding Status}" FontSize="12" FontFamily="Verdana" Foreground="White" HorizontalAlignment="Right"/>
+                </StatusBar>
             </Grid>
-            <Border Background="#800e2651" Margin="5" CornerRadius="5" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2">
-                <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-                    <DataGrid ItemsSource="{Binding AddressList}" Background="Transparent" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
-                        <DataGrid.Resources>
-                            <SolidColorBrush x:Key="MaterialDesignSelection" Color="#20FFFFFF"  />
-                        </DataGrid.Resources>
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                <Setter Property="Foreground" Value="White"></Setter>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Columns>
-                            <materialDesign:MaterialDataGridTextColumn
-                                Header="Name"
-                                Binding="{Binding Name, Mode=TwoWay}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                            <materialDesign:MaterialDataGridTextColumn
-                                Header="Address"
-                                Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
-                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                            <DataGridTemplateColumn Header="Balance">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Border>
-        </Grid>
-    </materialDesign:DialogHost>
+        </materialDesign:DialogHost>
+    </Border>
 </Window>
