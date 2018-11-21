@@ -35,8 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>myICO.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoinMarketCap, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -182,10 +181,10 @@
     <Resource Include="right-panel.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="myICO.ico" />
+    <Resource Include="left-panel.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="left-panel.png" />
+    <Resource Include="myICO.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
