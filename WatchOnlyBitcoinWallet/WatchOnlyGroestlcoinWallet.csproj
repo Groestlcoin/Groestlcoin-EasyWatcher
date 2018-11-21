@@ -50,9 +50,8 @@
       <HintPath>..\packages\MaterialDesignThemes.2.4.1.1101\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -82,10 +81,14 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\BitcoinAddress.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Services\Api.cs" />
+    <Compile Include="Services\BalanceServices\Insight.cs" />
     <Compile Include="Services\BalanceServices\Chainz.cs" />
     <Compile Include="Services\DataManager.cs" />
     <Compile Include="Services\ErrorCollection.cs" />
@@ -93,6 +96,9 @@
     <Compile Include="Services\PriceServices\Chainz.cs" />
     <Compile Include="Services\Response.cs" />
     <Compile Include="Services\WindowManager.cs" />
+    <Compile Include="Titlebar.xaml.cs">
+      <DependentUpon>Titlebar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ImportViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -114,10 +120,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Titlebar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ImportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,9 +162,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="myICO.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BitcoinLibrary\GroestlcoinLibrary.csproj">
       <Project>{8fcc2c76-56f8-465f-b467-a21cf487b4ea}</Project>
       <Name>GroestlcoinLibrary</Name>
@@ -173,6 +176,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="grs-logo-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="right-panel.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="left-panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="myICO.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

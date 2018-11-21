@@ -102,6 +102,7 @@ namespace GroestlcoinLibrary
             VerificationResult result = new VerificationResult() { IsVerified = false };
 
             string hrp = (nt == NetworkType.MainNet) ? "grs" : "tgrs";
+
             if (!grsAddress.StartsWith(hrp, StringComparison.InvariantCultureIgnoreCase))
             {
                 result.Error = "Invalid Human Readable Part!";
@@ -122,7 +123,7 @@ namespace GroestlcoinLibrary
             // For checksum purposes only lower case is used.
             grsAddress = grsAddress.ToLowerInvariant();
             // Check separator
-            int separatorPos = grsAddress.LastIndexOf("F", StringComparison.OrdinalIgnoreCase);
+            int separatorPos = grsAddress.LastIndexOf("1", StringComparison.OrdinalIgnoreCase);
             if (separatorPos < 1 || separatorPos + 7 > grsAddress.Length)
             {
                 result.Error = "Separator is either missing or misplaced!";

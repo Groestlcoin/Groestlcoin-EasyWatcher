@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace WatchOnlyGroestlcoinWallet
 {
@@ -22,6 +23,15 @@ namespace WatchOnlyGroestlcoinWallet
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void MainWindowCopy_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e){
+            try {
+                this?.DragMove();
+            }
+            catch {
+                //Ignored
+            }
         }
     }
 }

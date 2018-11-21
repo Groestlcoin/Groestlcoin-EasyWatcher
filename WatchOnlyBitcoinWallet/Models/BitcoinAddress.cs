@@ -44,17 +44,6 @@ namespace WatchOnlyGroestlcoinWallet.Models
             set { SetField(ref difference, value); }
         }
 
-        private decimal forkBalance;
-        /// <summary>
-        /// Total balance that was available by the time of fork
-        /// </summary>
-        [JsonIgnore]
-        public decimal ForkBalance
-        {
-            get { return forkBalance; }
-            set { SetField(ref forkBalance, value); }
-        }
-
 
         public List<Transaction> TransactionList { get; set; }
 

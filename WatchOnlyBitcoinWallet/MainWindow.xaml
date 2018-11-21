@@ -1,179 +1,170 @@
-﻿<Window x:Name="windowMain" x:Class="WatchOnlyGroestlcoinWallet.MainWindow"
+﻿<Window x:Name="WindowMain" x:Class="WatchOnlyGroestlcoinWallet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:WatchOnlyGroestlcoinWallet.ViewModels"
         xmlns:mvvm="clr-namespace:MVVMLibrary;assembly=MVVMLibrary"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Groestlcoin EasyWatcher" Height="348" MinHeight="342" MaxHeight="600" Width="720" MinWidth="720" MaxWidth="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="14" Icon="myICO.ico">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" BorderThickness="2" 
+        xmlns:watchOnlyGroestlcoinWallet="clr-namespace:WatchOnlyGroestlcoinWallet" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="MainWindowCopy_OnMouseLeftButtonDown"
+        Title="Groestlcoin Sentinel" Height="348" MinHeight="342" MaxHeight="600" Width="800" MinWidth="720" MaxWidth="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="14" Icon="myICO.ico">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Background>
+        <ImageBrush ImageSource="right-panel.jpg" Stretch="None" AlignmentX="Right"></ImageBrush>
+    </Window.Background>
 
     <Window.Resources>
-        <mvvm:BooleanToVisibilityConverter x:Key="visibilityConverter"/>
         <mvvm:NumberToColorConverter x:Key="numToColorConverter"/>
         <mvvm:StringNullOrEmptyBoolConverter x:Key="NullOrEmptyBoolConverter"></mvvm:StringNullOrEmptyBoolConverter>
     </Window.Resources>
-
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="About_Click"/>
     </Window.CommandBindings>
-
     <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand, Mode=OneWay}" />
         <KeyBinding Key="F2" Command="{Binding SettingsCommand}"/>
         <KeyBinding Key="F1" Command="New"/>
     </Window.InputBindings>
-    <materialDesign:DialogHost>
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="180">
-                    <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch">
-                        <Image Source="GRS-logo-64.png" Width="32" HorizontalAlignment="Left" Margin="5"></Image>
-                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
-                                          HorizontalAlignment="Right" Margin="16"
-                                          IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    </DockPanel>
-                    <StackPanel>
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalContentAlignment="Stretch" Margin="0" Command="{Binding SettingsCommand, Mode=OneWay}">
-                            <Button.Content>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="30"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Options</TextBlock>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right">F2</TextBlock>
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                        <Separator></Separator>
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalContentAlignment="Stretch" Margin="0" Command="{Binding ImportFromTextCommand, Mode=OneWay}">
-                            <Button.Content>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="30"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Import From Text</TextBlock>
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalContentAlignment="Stretch" Margin="0" Command="{Binding ImportFromFileCommand, Mode=OneWay}" ToolTip="Addresses in the file should be separated by a new line.">
-                            <Button.Content>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="30"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" VerticalAlignment="Center">Import From File</TextBlock>
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                        <Separator></Separator>
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalContentAlignment="Stretch" Margin="0" Click="About_Click">
-                            <Button.Content>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="30"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0">About</TextBlock>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right">F1</TextBlock>
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                        <Separator></Separator>
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalContentAlignment="Stretch" Margin="0" Click="Exit_Click">
-                            <Button.Content>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="50"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0">Exit</TextBlock>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Right">Alt+F4</TextBlock>
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                        <materialDesign:Card VerticalAlignment="Bottom" Margin="5"  materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                            <materialDesign:ColorZone Mode="Light">
-                                <TextBlock Text="{Binding VersionString}" FontWeight="Bold" TextAlignment="Center" Focusable="False" Cursor="Pen" FontFamily="Segoe UI" Margin="5" />
-                            </materialDesign:ColorZone>
-                        </materialDesign:Card>
-                    </StackPanel>
-                    
-                </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
-            <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="165px"/>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            
+            <Grid Grid.Column="0" Grid.RowSpan="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ZIndex="1">
+                <Grid.Background>
+                    <ImageBrush ImageSource="left-panel.png" Stretch="Fill"></ImageBrush>
+            </Grid.Background>
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="20" Color="Black" Opacity="1" ShadowDepth="5" RenderingBias="Quality"  Direction="0"></DropShadowEffect>
+                </Grid.Effect>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <materialDesign:ColorZone HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" Grid.ColumnSpan="2">
-                    <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
-                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" DockPanel.Dock="Left" IsChecked="False" x:Name="MenuToggleButton"/>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Groestlcoin EasyWatcher</TextBlock>
-                        <!-- <Image Source="GRS-logo-64.png" Width="32" DockPanel.Dock="Right" HorizontalAlignment="Right"></Image>-->
-                    </DockPanel>
-                </materialDesign:ColorZone>
-                <materialDesign:Card Grid.Row="1" Margin="3">
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="530"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <DataGrid ItemsSource="{Binding AddressList}" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=TwoWay}"/>
-                                <DataGridTextColumn Header="Address" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"/>
-                                <DataGridTemplateColumn Header="Balance">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1">
+                    <Image Source="GRS-logo-64.png" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Image>
+                    <TextBlock FontFamily="Verdana" FontWeight="UltraBlack" Foreground="#0091B9" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0 0 0 -2">GROESTLCOIN</TextBlock>
+                    <TextBlock FontFamily="Verdana"  TextOptions.TextRenderingMode="ClearType" Foreground="White" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0" Text="S E N T I N E L">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleY="0.7"></ScaleTransform>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
 
-                            <Button Content="Update Balances" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Command="{Binding GetBalanceCommand}" Height="35" Margin="3" Grid.ColumnSpan="2" Grid.Row="0"/>
-
-                            <TextBlock Text="Ǥ  " Grid.Column="0" Grid.Row="1"/>
-                            <TextBlock Text="$  " Grid.Column="0" Grid.Row="2"/>
-                            <TextBlock Text="{Binding SettingsInstance.LocalCurrencySymbol}" Margin="0,0,5,0" Grid.Column="0" Grid.Row="3"/>
-
-                            <TextBlock Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N8\}}" Grid.Column="1" Grid.Row="1"/>
-                            <TextBlock Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}" Grid.Column="1" Grid.Row="2"/>
-                            <TextBlock Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N0\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }" Grid.Column="1" Grid.Row="3"/>
-
-                            <ScrollViewer Visibility="{Binding IsErrorMsgVisible, Converter={StaticResource visibilityConverter}}" Margin="0,5,5,5" Grid.ColumnSpan="2" Grid.Row="4">
-                                <TextBlock Text="{Binding Errors}" Visibility="{Binding IsErrorMsgVisible, Converter={StaticResource visibilityConverter}}" TextWrapping="Wrap" Background="{DynamicResource ValidationErrorBrush}"/>
-                            </ScrollViewer>
-                        </Grid>
-                    </Grid>
-                </materialDesign:Card>
-
-
-                <StatusBar Grid.Row="2">
-                    <TextBlock Text="{Binding Status}" FontSize="15" FontFamily="Segoe UI"/>
-                </StatusBar>
+                <StackPanel Background="#27034ccf" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                    <Separator Background="#0091B9" Height="1" HorizontalAlignment="Stretch" Margin="0 0 0 0">
+                        <Separator.Effect>
+                            <BlurEffect Radius="2"></BlurEffect>
+                        </Separator.Effect>
+                    </Separator>
+                    <UniformGrid Columns="3">
+                        <Button Padding="5 2 5 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromFileCommand, Mode=OneWay}">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="File"  Foreground="#00C6FD"  Height="20" Width="20">
+                                    <materialDesign:PackIcon.Effect>
+                                        <DropShadowEffect Color="Black" ShadowDepth="2" BlurRadius="2"></DropShadowEffect>
+                                    </materialDesign:PackIcon.Effect>
+                                </materialDesign:PackIcon>
+                            </Button.Content>
+                        </Button>
+                        <Button Padding="5 2 5 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromTextCommand, Mode=OneWay}">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="Textbox"  Foreground="#00C6FD"  Height="20" Width="20">
+                                    <materialDesign:PackIcon.Effect>
+                                        <DropShadowEffect Color="Black" ShadowDepth="2" BlurRadius="2"></DropShadowEffect>
+                                    </materialDesign:PackIcon.Effect>
+                                </materialDesign:PackIcon>
+                            </Button.Content>
+                        </Button>
+                        <Button Padding="5 2 5 2"  Style="{DynamicResource MaterialDesignFlatButton}"  Command="{Binding SettingsCommand, Mode=OneWay}">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="Settings" Foreground="#00C6FD" Height="20" Width="20">
+                                    <materialDesign:PackIcon.Effect>
+                                        <DropShadowEffect Color="Black" ShadowDepth="2" BlurRadius="2"></DropShadowEffect>
+                                    </materialDesign:PackIcon.Effect>
+                                </materialDesign:PackIcon>
+                            </Button.Content>
+                        </Button>
+                    </UniformGrid>
+                    <Separator Background="#0091B9" HorizontalAlignment="Stretch" Margin="0 0 0 0">
+                        <Separator.Effect>
+                            <BlurEffect Radius="2"></BlurEffect>
+                        </Separator.Effect>
+                    </Separator>
+                    </StackPanel>
+                
+                </StackPanel>
             </Grid>
-        </materialDesign:DrawerHost>
-    </materialDesign:DialogHost>
-
+            <watchOnlyGroestlcoinWallet:Titlebar Grid.ZIndex="2"  Grid.Row="0" HorizontalAlignment="Stretch" x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></watchOnlyGroestlcoinWallet:Titlebar>
+            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ZIndex="2">
+            <Border Background="#A8023899" Margin="5" CornerRadius="5">
+                <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">GRS</Label>
+                            <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N8\}}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">USD</Label>
+                            <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
+                            <Label Content="{Binding SettingsInstance.LocalCurrencySymbol}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
+                            <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
+                        </StackPanel>
+                        <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Stretch">
+                                    <materialDesign:PackIcon Kind="Refresh" Height="32" Width="32" HorizontalAlignment="Center" Foreground="White" />
+                                    <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Normal">Refresh</Label>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        <Border Background="#A8023899" Margin="5" CornerRadius="5" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Grid.ZIndex="2">
+                <Grid>
+                    <DataGrid ItemsSource="{Binding AddressList}" Background="Transparent" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="True" CanUserSortColumns="True" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
+                    <DataGrid.Resources>
+                        <SolidColorBrush x:Key="MaterialDesignSelection" Color="#20FFFFFF"  />
+                    </DataGrid.Resources>
+                    <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White"></Setter>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <materialDesign:MaterialDataGridTextColumn Header="Name" Binding="{Binding Name, Mode=TwoWay}" MinWidth="50" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                            <materialDesign:MaterialDataGridTextColumn Header="Address" MinWidth="300" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                            <DataGridTemplateColumn Header="Balance" MinWidth="50">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        <StatusBar Grid.Row="4" Background="#A8023899" Grid.Column="1" Grid.ZIndex="0">
+                <TextBlock Text="{Binding Status}" FontSize="12" Margin="10 0 0 0" FontFamily="Verdana" Foreground="White" HorizontalAlignment="Right" TextAlignment="Right"/>
+            </StatusBar>
+        </Grid>
 </Window>
