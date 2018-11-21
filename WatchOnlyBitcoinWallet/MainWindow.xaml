@@ -67,7 +67,7 @@
                         </Separator.Effect>
                     </Separator>
                     <UniformGrid Columns="3">
-                        <Button Padding="5 2 5 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromFileCommand, Mode=OneWay}">
+                        <Button Padding="5 2 5 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromFileCommand, Mode=OneWay}" ToolTip="Import from File">
                             <Button.Content>
                                 <materialDesign:PackIcon Kind="File"  Foreground="#00C6FD"  Height="20" Width="20">
                                     <materialDesign:PackIcon.Effect>
@@ -76,7 +76,7 @@
                                 </materialDesign:PackIcon>
                             </Button.Content>
                         </Button>
-                        <Button Padding="5 2 5 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromTextCommand, Mode=OneWay}">
+                        <Button Padding="5 2 5 2" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding ImportFromTextCommand, Mode=OneWay}" ToolTip="Import from Text">
                             <Button.Content>
                                 <materialDesign:PackIcon Kind="Textbox"  Foreground="#00C6FD"  Height="20" Width="20">
                                     <materialDesign:PackIcon.Effect>

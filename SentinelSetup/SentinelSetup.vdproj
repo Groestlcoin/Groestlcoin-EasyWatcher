@@ -1285,6 +1285,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:FALSE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -3477,7 +3493,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Groestlcoin Sentinel"
         "ProductCode" = "8:{8C9E9B60-A853-4E29-9891-A84688C57875}"
-        "PackageCode" = "8:{C7DFF41A-3A1B-45A0-B67E-08F107D24524}"
+        "PackageCode" = "8:{7B23C0FB-B7EF-4D8D-931A-A667AC5FE08C}"
         "UpgradeCode" = "8:{FE0B2888-8192-47C3-9729-7A595EDFF1CB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
