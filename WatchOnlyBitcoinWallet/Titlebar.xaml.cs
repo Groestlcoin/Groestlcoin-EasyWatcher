@@ -72,7 +72,9 @@ namespace WatchOnlyGroestlcoinWallet
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e) {
-            
+            AboutWindow myWin = new AboutWindow();
+            myWin.Owner = Window.GetWindow(this);
+            myWin.ShowDialog();
         }
 
         private void LnkGit_OnRequestNavigate(object sender, RequestNavigateEventArgs e) {

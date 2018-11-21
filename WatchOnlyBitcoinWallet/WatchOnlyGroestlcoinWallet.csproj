@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>myICO.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoinMarketCap, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,8 +82,8 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowCopy.xaml.cs">
-      <DependentUpon>MainWindowCopy.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\BitcoinAddress.cs" />
     <Compile Include="Models\SettingsModel.cs" />
@@ -112,7 +113,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindowCopy.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -162,9 +163,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="myICO.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BitcoinLibrary\GroestlcoinLibrary.csproj">
       <Project>{8fcc2c76-56f8-465f-b467-a21cf487b4ea}</Project>
       <Name>GroestlcoinLibrary</Name>
@@ -181,16 +179,13 @@
     <Resource Include="grs-logo-64.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="29.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="29d.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="right-panel.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="left-panel.jpg" />
+    <Resource Include="myICO.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="left-panel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

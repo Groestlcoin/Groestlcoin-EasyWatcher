@@ -15,30 +15,34 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <Border Background="Transparent" CornerRadius="5" DockPanel.Dock="Top" Height="25" x:Name="TitleBar" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" FontFamily="Impact" FontWeight="ExtraBold" Background="Transparent"  BorderThickness="0" Padding="2" Width="20" Click="Button_Click" Name="uxMinimiseBtn" Style="{DynamicResource MaterialDesignFlatButton}">
+        <Border Background="Transparent" CornerRadius="5" DockPanel.Dock="Top" Height="30" x:Name="TitleBar" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
+            <UniformGrid Columns="3" VerticalAlignment="Top">
+                <Button  FontFamily="Impact" FontWeight="ExtraBold" MinWidth="30" Background="Transparent" Padding="0" BorderThickness="0" Click="Button_Click" Name="uxMinimiseBtn" Style="{DynamicResource MaterialDesignFlatButton}">
                     <Button.Content>
-                        <materialDesign:PackIcon Kind="WindowMinimize" Foreground="{DynamicResource MaterialDesignBody}"/>
+                        <materialDesign:PackIcon Kind="WindowMinimize" Foreground="{DynamicResource MaterialDesignBody}" Height="15" Width="15" Margin="0" VerticalAlignment="Center">
+                            <materialDesign:PackIcon.Effect>
+                                <DropShadowEffect Color="Black" ShadowDepth="2" BlurRadius="2"></DropShadowEffect>
+                            </materialDesign:PackIcon.Effect>
+                        </materialDesign:PackIcon>
                     </Button.Content>
                 </Button>
-                <Button Name="uxAboutBtn" Grid.Column="1" Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="ButtonBase_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">
-                    <Hyperlink x:Name="lnkGit" NavigateUri="https://github.com/Groestlcoin/Groestlcoin-EasyWatcher"
-                               RequestNavigate="LnkGit_OnRequestNavigate" >
-                        <materialDesign:PackIcon Kind="CommentQuestion" Foreground="{DynamicResource MaterialDesignBody}" />
-                    </Hyperlink>
+                <Button Name="uxAboutBtn" Background="Transparent" MinWidth="30" BorderThickness="0" Padding="0" Click="ButtonBase_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="HelpCircle" Foreground="{DynamicResource MaterialDesignBody}" Height="15" Width="15" Margin="0">
+                        <materialDesign:PackIcon.Effect>
+                            <DropShadowEffect Color="Black" ShadowDepth="2" BlurRadius="2"></DropShadowEffect>
+                        </materialDesign:PackIcon.Effect>
+                    </materialDesign:PackIcon>
                 </Button>
-                <Button Grid.Column="2" Name="UxCloseBtn"  Background="Transparent" BorderThickness="0" Height="20" Width="20" Padding="2" Click="UxCloseBtn_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">
+                <Button Grid.Column="2" Name="UxCloseBtn" MinWidth="30" Background="Transparent" Padding="0" BorderThickness="0" VerticalAlignment="Center" Click="UxCloseBtn_OnClick" Style="{DynamicResource MaterialDesignFlatButton}">
                     <Button.Content>
-                        <materialDesign:PackIcon Kind="WindowClose"  Foreground="{DynamicResource MaterialDesignBody}"/>
+                        <materialDesign:PackIcon Kind="WindowClose"  Foreground="{DynamicResource MaterialDesignBody}" Height="15" Width="15" Margin="0" Padding="0" VerticalAlignment="Center">
+                            <materialDesign:PackIcon.Effect>
+                                <DropShadowEffect Color="Black" ShadowDepth="2" BlurRadius="2"></DropShadowEffect>
+                            </materialDesign:PackIcon.Effect>
+                        </materialDesign:PackIcon>
                     </Button.Content>
                 </Button>
-            </Grid>
+            </UniformGrid>
         </Border>
     </DockPanel>
 </UserControl>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchOnlyGroestlcoinWallet", "WatchOnlyBitcoinWallet\WatchOnlyGroestlcoinWallet.csproj", "{3E275526-08A4-4B6B-8E69-9C6194198220}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlcoinLibrary", "BitcoinLibrary\GroestlcoinLibrary.csproj", "{8FCC2C76-56F8-465F-B467-A21CF487B4EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroestlcoinLibraryTests", "BitcoinLibraryTests\GroestlcoinLibraryTests.csproj", "{9948D343-8D56-45C0-9809-7664D8953563}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SentinelSetup", "SentinelSetup\SentinelSetup.vdproj", "{0D21A957-0AAF-4217-8D00-DB48CA0BC2F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,17 @@ Global
 		{9948D343-8D56-45C0-9809-7664D8953563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9948D343-8D56-45C0-9809-7664D8953563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9948D343-8D56-45C0-9809-7664D8953563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D21A957-0AAF-4217-8D00-DB48CA0BC2F9}.Debug|Any CPU.ActiveCfg = Debug
+		{0D21A957-0AAF-4217-8D00-DB48CA0BC2F9}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {634AD009-8D76-4B2F-BE53-D5ACC1517E27}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 EndGlobal

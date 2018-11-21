@@ -7,10 +7,10 @@
     <Border BorderThickness="2" CornerRadius="2" BorderBrush="White">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <watchOnlyGroestlcoinWallet:Titlebar Grid.Row="0" HorizontalAlignment="Right" x:Name="Titlebar" BorderThickness="0" IsMainWindow="False"></watchOnlyGroestlcoinWallet:Titlebar>
+            <watchOnlyGroestlcoinWallet:Titlebar IsAbout="True" Grid.Row="0" HorizontalAlignment="Right" x:Name="Titlebar" BorderThickness="0" IsMainWindow="False"></watchOnlyGroestlcoinWallet:Titlebar>
             <StackPanel Grid.Row="1">
                 <Image Source="GRS-logo-64.png" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Image>
                 <TextBlock FontFamily="Verdana" FontWeight="UltraBlack" Foreground="#0091B9" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0 0 0 -2">GROESTLCOIN</TextBlock>
