@@ -10,7 +10,7 @@ namespace WatchOnlyGroestlcoinWallet.Services.BalanceServices {
         public override async Task<Response> UpdateBalancesAsync(List<GroestlcoinAddress> addrList) {
             Response resp = new Response();
             foreach (var addr in addrList) {
-                string url = "https://groestlsight.groestlcoin.org/api/addr/" + addr.Address + "/balance";
+                string url = "https://groestlsight.groestlcoin.org/api/addr/" + addr.Address.Trim() + "/balance";
 
                 using (var httpClient = new HttpClient()) {
                     var res = await httpClient.GetAsync(url);

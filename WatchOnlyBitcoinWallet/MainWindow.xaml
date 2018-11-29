@@ -25,40 +25,36 @@
         <KeyBinding Key="F2" Command="{Binding SettingsCommand}"/>
         <KeyBinding Key="F1" Command="New"/>
     </Window.InputBindings>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="165px"/>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="165px"/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
 
-            
-            <Grid Grid.Column="0" Grid.RowSpan="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ZIndex="1">
-                <Grid.Background>
-                    <ImageBrush ImageSource="left-panel.png" Stretch="Fill"></ImageBrush>
-            </Grid.Background>
-                <Grid.Effect>
-                    <DropShadowEffect BlurRadius="20" Color="Black" Opacity="1" ShadowDepth="5" RenderingBias="Quality"  Direction="0"></DropShadowEffect>
-                </Grid.Effect>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.RowSpan="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ZIndex="1" Background="{StaticResource LeftPanel}">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="20" Color="Black" Opacity="1" ShadowDepth="5" RenderingBias="Quality"  Direction="0"></DropShadowEffect>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <StackPanel Grid.Row="1">
-                    <Image Source="GRS-logo-64.png" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Image>
-                    <TextBlock FontFamily="Verdana" FontWeight="UltraBlack" Foreground="#0091B9" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0 0 0 -2">GROESTLCOIN</TextBlock>
-                    <TextBlock FontFamily="Verdana"  TextOptions.TextRenderingMode="ClearType" Foreground="White" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0" Text="S E N T I N E L">
-                        <TextBlock.RenderTransform>
-                            <ScaleTransform ScaleY="0.7"></ScaleTransform>
-                        </TextBlock.RenderTransform>
-                    </TextBlock>
+                <Image Source="GRS-logo-64.png" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"></Image>
+                <TextBlock FontFamily="Verdana" FontWeight="UltraBlack" Foreground="#0091B9" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0 0 0 -2">GROESTLCOIN</TextBlock>
+                <TextBlock FontFamily="Verdana"  TextOptions.TextRenderingMode="ClearType" Foreground="White" HorizontalAlignment="Center" FontSize="17" Padding="0" Margin="0" Text="S E N T I N E L">
+                    <TextBlock.RenderTransform>
+                        <ScaleTransform ScaleY="0.7"></ScaleTransform>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
 
                 <StackPanel Background="#27034ccf" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
                     <Separator Background="#0091B9" Height="1" HorizontalAlignment="Stretch" Margin="0 0 0 0">
@@ -100,71 +96,71 @@
                             <BlurEffect Radius="2"></BlurEffect>
                         </Separator.Effect>
                     </Separator>
-                    </StackPanel>
-                
                 </StackPanel>
-            </Grid>
-            <watchOnlyGroestlcoinWallet:Titlebar Grid.ZIndex="2"  Grid.Row="0" HorizontalAlignment="Stretch" x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></watchOnlyGroestlcoinWallet:Titlebar>
-            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ZIndex="2">
+
+            </StackPanel>
+        </Grid>
+        <watchOnlyGroestlcoinWallet:Titlebar Grid.ZIndex="2"  Grid.Row="0" HorizontalAlignment="Stretch" x:Name="Titlebar" BorderThickness="0" IsMainWindow="True"></watchOnlyGroestlcoinWallet:Titlebar>
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ZIndex="2">
             <Border Background="#A8023899" Margin="5" CornerRadius="5">
                 <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="6*"/>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="6*"/>
-                            <ColumnDefinition Width="6*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">GRS</Label>
-                            <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N8\}}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">USD</Label>
-                            <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
-                            <Label Content="{Binding SettingsInstance.LocalCurrencySymbol}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
-                            <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
-                        </StackPanel>
-                        <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
-                            <Button.Content>
-                                <StackPanel VerticalAlignment="Stretch">
-                                    <materialDesign:PackIcon Kind="Refresh" Height="32" Width="32" HorizontalAlignment="Center" Foreground="White" />
-                                    <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Normal">Refresh</Label>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                    </Grid>
-                </Border>
-            </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">GRS</Label>
+                        <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalance, Mode=OneWay, StringFormat=\{0:N8\}}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold">USD</Label>
+                        <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
+                        <Label Content="{Binding SettingsInstance.LocalCurrencySymbol}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
+                        <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
+                    </StackPanel>
+                    <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
+                        <Button.Content>
+                            <StackPanel VerticalAlignment="Stretch">
+                                <materialDesign:PackIcon Kind="Refresh" Height="32" Width="32" HorizontalAlignment="Center" Foreground="White" />
+                                <Label Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Normal">Refresh</Label>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
         <Border Background="#A8023899" Margin="5" CornerRadius="5" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Grid.ZIndex="2">
-                <Grid>
-                    <DataGrid ItemsSource="{Binding AddressList}" Background="Transparent" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="True" CanUserSortColumns="True" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
+            <Grid>
+                <DataGrid ItemsSource="{Binding AddressList}" Background="Transparent" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="True" CanUserSortColumns="True" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
                     <DataGrid.Resources>
                         <SolidColorBrush x:Key="MaterialDesignSelection" Color="#20FFFFFF"  />
                     </DataGrid.Resources>
                     <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                                <Setter Property="Foreground" Value="White"></Setter>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Columns>
-                            <materialDesign:MaterialDataGridTextColumn Header="Name" Binding="{Binding Name, Mode=TwoWay}" MinWidth="50" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                            <materialDesign:MaterialDataGridTextColumn Header="Address" MinWidth="300" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                            <DataGridTemplateColumn Header="Balance" MinWidth="50">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Border>
+                        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="Foreground" Value="White"></Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <materialDesign:MaterialDataGridTextColumn Header="Name" Binding="{Binding Name, Mode=TwoWay}" MinWidth="50" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                        <materialDesign:MaterialDataGridTextColumn Header="Address" MinWidth="300" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                        <DataGridTemplateColumn Header="Balance" MinWidth="50">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
         <StatusBar Grid.Row="4" Background="#A8023899" Grid.Column="1" Grid.ZIndex="0">
-                <TextBlock Text="{Binding Status}" FontSize="12" Margin="10 0 0 0" FontFamily="Verdana" Foreground="White" HorizontalAlignment="Right" TextAlignment="Right"/>
-            </StatusBar>
-        </Grid>
+            <TextBlock Text="{Binding Status}" FontSize="12" Margin="10 0 0 0" FontFamily="Verdana" Foreground="White" HorizontalAlignment="Right" TextAlignment="Right"/>
+        </StatusBar>
+    </Grid>
 </Window>
