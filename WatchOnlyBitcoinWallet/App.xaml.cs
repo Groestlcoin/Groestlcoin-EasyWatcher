@@ -16,10 +16,9 @@ namespace WatchOnlyGroestlcoinWallet
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e) {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(

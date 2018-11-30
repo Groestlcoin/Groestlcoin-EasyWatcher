@@ -23,6 +23,10 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
 
             SettingsInstance = DataManager.ReadFile<SettingsModel>(DataManager.FileType.Settings);
 
+            if (string.IsNullOrEmpty(SettingsInstance.LocalCurrencySymbol)) {
+                SettingsInstance.SelectedCurrency = SettingsInstance.SelectedCurrency;
+            }
+
             GetBalanceCommand = new BindableCommand(GetBalance, () => !IsReceiving);
             SettingsCommand = new BindableCommand(OpenSettings);
 
@@ -85,7 +89,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             set { SetField(ref settingsInstance, value); }
         }
 
-        public string LocalCurrencySymbol => SettingsInstance.SelectedCurrency.ToString();
+        public string LocalCurrencySymbol => Enum.GetName(typeof(SupportedCurrencies), SettingsInstance.SelectedCurrency);
 
         public decimal GroestlcoinBalance {
             get { return AddressList.Sum(x => (decimal) x.Balance); }

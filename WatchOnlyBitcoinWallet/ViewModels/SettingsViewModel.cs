@@ -88,6 +88,22 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                     Settings.SelectedCurrency = value;
                     RaisePropertyChanged("SelectedCurrency");
                 }
+                Settings.LocalCurrencySymbol = Enum.GetName(typeof(SupportedCurrencies), value);
+            }
+        }
+
+        public string SelectedCurrencySymbol {
+            get {
+                if (Settings?.SelectedCurrency != null){
+                    return Settings.LocalCurrencySymbol;
+                }
+                return "EUR";
+            }
+            set {
+                if (Settings.LocalCurrencySymbol != value){
+                    Settings.LocalCurrencySymbol = value;
+                    RaisePropertyChanged("SelectedCurrencySymbol");
+                }
             }
         }
 

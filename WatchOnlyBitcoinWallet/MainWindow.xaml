@@ -148,7 +148,7 @@
                     <DataGrid.Columns>
                         <materialDesign:MaterialDataGridTextColumn Header="Name" Width="100*" Binding="{Binding Name, Mode=TwoWay}" MinWidth="80" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                         <materialDesign:MaterialDataGridTextColumn Header="Address" Width="310*" MinWidth="330" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                        <DataGridTemplateColumn Header="Balance" MinWidth="70" Width="70*">
+                        <DataGridTemplateColumn Header="Balance" MinWidth="100" Width="115*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>

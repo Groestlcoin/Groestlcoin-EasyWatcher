@@ -17,12 +17,6 @@ namespace WatchOnlyGroestlcoinWallet.Services.ExchangeRateServices
 
             Response<decimal?> resp = new Response<decimal?>();
 
-            if (ToCurrency == 0)
-            {
-                resp.Errors.Add("Invalid Currency");
-                resp.Result = null;
-                return resp;
-            }
             var url = $"https://free.currencyconverterapi.com/api/v6/convert?q=USD_{Enum.GetName(typeof(SupportedCurrencies), ToCurrency)}&compact=ultra";
 
             using (var httpClient = new HttpClient())
