@@ -10,5 +10,6 @@ namespace WatchOnlyGroestlcoinWallet.Models
         public string LocalCurrencySymbol { get; set; }
         public BalanceServiceNames SelectedBalanceApi { get; set; }
         public PriceServiceNames SelectedPriceApi { get; set; }
+        public SupportedCurrencies SelectedCurrency { get; set; }
     }
 }

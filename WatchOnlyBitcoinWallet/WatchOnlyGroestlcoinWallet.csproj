@@ -92,6 +92,7 @@
     <Compile Include="Services\BalanceServices\Chainz.cs" />
     <Compile Include="Services\DataManager.cs" />
     <Compile Include="Services\ErrorCollection.cs" />
+    <Compile Include="Services\ExchangeRateServices\CurrencyConverterApi.cs" />
     <Compile Include="Services\PriceServices\CoinMarketCap.cs" />
     <Compile Include="Services\PriceServices\Chainz.cs" />
     <Compile Include="Services\Response.cs" />

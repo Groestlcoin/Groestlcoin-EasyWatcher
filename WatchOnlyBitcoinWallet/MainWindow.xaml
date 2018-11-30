@@ -5,12 +5,12 @@
         xmlns:mvvm="clr-namespace:MVVMLibrary;assembly=MVVMLibrary"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" BorderThickness="2" 
         xmlns:watchOnlyGroestlcoinWallet="clr-namespace:WatchOnlyGroestlcoinWallet" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="MainWindowCopy_OnMouseLeftButtonDown"
-        Title="Groestlcoin Sentinel" Height="348" MinHeight="342" MaxHeight="600" Width="800" MinWidth="720" MaxWidth="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="14" Icon="myICO.ico">
+        Title="Groestlcoin Sentinel" Height="420" MinHeight="342" MaxHeight="600" Width="840" MinWidth="840" MaxWidth="840" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="14" Icon="myICO.ico">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Background>
-        <ImageBrush ImageSource="right-panel.jpg" Stretch="None" AlignmentX="Right"></ImageBrush>
+        <ImageBrush ImageSource="right-panel.jpg" Stretch="Fill" AlignmentX="Right"></ImageBrush>
     </Window.Background>
 
     <Window.Resources>
@@ -120,8 +120,8 @@
                         <TextBlock Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceUSD, Mode=OneWay, StringFormat=\{0:N2\}}"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
-                        <Label Content="{Binding SettingsInstance.LocalCurrencySymbol}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
-                        <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\}}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
+                        <Label Content="{Binding SettingsInstance.SelectedCurrency}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
+                        <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\},FallbackValue=N/A}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
                     </StackPanel>
                     <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
                         <Button.Content>
@@ -146,9 +146,9 @@
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
                     <DataGrid.Columns>
-                        <materialDesign:MaterialDataGridTextColumn Header="Name" Binding="{Binding Name, Mode=TwoWay}" MinWidth="50" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                        <materialDesign:MaterialDataGridTextColumn Header="Address" MinWidth="300" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                        <DataGridTemplateColumn Header="Balance" MinWidth="50">
+                        <materialDesign:MaterialDataGridTextColumn Header="Name" Width="100*" Binding="{Binding Name, Mode=TwoWay}" MinWidth="80" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                        <materialDesign:MaterialDataGridTextColumn Header="Address" Width="310*" MinWidth="330" Binding="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                        <DataGridTemplateColumn Header="Balance" MinWidth="70" Width="70*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Balance, StringFormat=\{0:N8\}}" ToolTip="{Binding Difference, StringFormat=\{0:N8\}}" Background="{Binding Difference, Converter={StaticResource numToColorConverter}}"/>
