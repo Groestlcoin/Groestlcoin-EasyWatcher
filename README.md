@@ -1,4 +1,6 @@
-![Logo](Images/GRS-logo.png)
+<img src="Images/GRS-logo.png" width="64" alt="Groestlcoin Logo">
+
+  
 # Watch Only Groestlcoin Wallet
 
 This is a simple open source tool created to help keep track of bitcoin addresses and their balances in a light application.
