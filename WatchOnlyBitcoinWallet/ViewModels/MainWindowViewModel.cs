@@ -40,6 +40,9 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
 
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             VersionString = $"Version {ver.Major}.{ver.Minor}.{ver.Build}";
+
+            AddressList.RaiseListChangedEvents = true;
+            AddressList.ListChanged += (sender, args) => GetBalance();
         }
 
         void RefreshBalances(object state, EventArgs e) {
@@ -87,6 +90,8 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         public string VersionString { get; private set; }
 
         public BindingList<GroestlcoinAddress> AddressList { get; set; }
+
+        
 
         private SettingsModel settingsInstance;
 

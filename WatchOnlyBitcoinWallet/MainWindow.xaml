@@ -137,7 +137,7 @@
         </Grid>
         <Border Background="#A8023899" Margin="5" CornerRadius="5" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Grid.ZIndex="2">
             <Grid>
-                <DataGrid ItemsSource="{Binding AddressList}" Background="Transparent" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="True" CanUserSortColumns="True" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
+                <DataGrid ItemsSource="{Binding AddressList}"  Background="Transparent" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="True" CanUserSortColumns="True" RowBackground="Transparent" Foreground="White" AutoGenerateColumns="False" Margin="5" Grid.Column="0">
                     <DataGrid.Resources>
                         <SolidColorBrush x:Key="MaterialDesignSelection" Color="#20FFFFFF"  />
                     </DataGrid.Resources>
