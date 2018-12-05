@@ -34,7 +34,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             ImportFromFileCommand = new BindableCommand(ImportFromFile);
 
             refreshTimer = new DispatcherTimer();
-            refreshTimer.Interval = new TimeSpan(0, 5, 0);
+            refreshTimer.Interval = new TimeSpan(0, 0, 5);
             refreshTimer.Tick += RefreshBalances;
             refreshTimer.Start();
 
@@ -43,7 +43,13 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         }
 
         void RefreshBalances(object state, EventArgs e) {
-            GetBalance();
+            try{
+                GetBalance();
+                refreshTimer.Interval = new TimeSpan(0, 5, 0);
+            }
+            catch{
+                //Do Nothing
+            }
         }
 
         void AddressList_ListChanged(object sender, ListChangedEventArgs e) {
