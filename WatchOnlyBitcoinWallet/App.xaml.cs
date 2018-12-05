@@ -18,7 +18,9 @@ namespace WatchOnlyGroestlcoinWallet
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("nl-NL");
+            //Thread.CurrentThread.CurrentUICulture =  CultureInfo.GetCultureInfo("nl-NL"); //CultureInfo.InstalledUICulture;
+            
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(

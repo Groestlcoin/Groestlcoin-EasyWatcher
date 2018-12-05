@@ -121,7 +121,7 @@
                     </StackPanel>
                     <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }">
                         <Label Content="{Binding SettingsInstance.SelectedCurrency}" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontFamily="Verdana Pro" FontWeight="Bold"/>
-                        <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N8\},FallbackValue=N/A}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
+                        <TextBlock  Foreground="#00C6FD" HorizontalAlignment="Center" FontSize="12" FontFamily="Verdana Pro" Text="{Binding GroestlcoinBalanceLC, Mode=OneWay, StringFormat=\{0:N2\},FallbackValue=N/A}" Visibility="{Binding SettingsInstance.LocalCurrencySymbol, Converter={StaticResource NullOrEmptyBoolConverter} }"/>
                     </StackPanel>
                     <Button Grid.Column="3" Style="{DynamicResource MaterialDesignFlatButton}" Height="93" Command="{Binding GetBalanceCommand}" Margin="0" Padding="0">
                         <Button.Content>

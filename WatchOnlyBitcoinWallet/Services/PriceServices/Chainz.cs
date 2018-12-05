@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace WatchOnlyGroestlcoinWallet.Services.PriceServices {
             using (var httpClient = new HttpClient()) {
                 var res = await httpClient.GetAsync(url);
                 if (res.IsSuccessStatusCode) {
-                    resp.Result = decimal.Parse(res.Content.ReadAsStringAsync().Result);
+                    resp.Result = decimal.Parse(res.Content.ReadAsStringAsync().Result, CultureInfo.InvariantCulture);
                 }
                 else {
                     resp.Errors.Add(res.ReasonPhrase);
