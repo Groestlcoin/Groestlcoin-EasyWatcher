@@ -1,7 +1,5 @@
+# Groestlcoin Sentinel (Windows)
 <img src="Images/GRS-logo.png" width="64" alt="Groestlcoin Logo">
-
-  
-# Watch Only Groestlcoin Wallet
 
 This is a simple open source tool created to help keep track of bitcoin addresses and their balances in a light application.
 ![ScreenShot](Images/Main.PNG)
@@ -29,4 +27,4 @@ Then review the code and leave your feedback.
 
 ![QrDonate](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=FYoKoGrSXGpTavNFVbvW18UYxo6JVbUDDa)
 
-Special thanks to Coding Enthusiast.
+Special thanks to Coding Enthusiast for creating the building blocks for this project. It's been a pleasure!
