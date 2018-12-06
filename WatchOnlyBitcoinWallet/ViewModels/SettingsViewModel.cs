@@ -95,7 +95,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         public string SelectedCurrencySymbol {
             get {
                 if (Settings?.SelectedCurrency != null){
-                    return Settings.LocalCurrencySymbol;
+                    return LocalCurrencySymbol;
                 }
                 return "EUR";
             }
@@ -131,7 +131,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
 
         public BindableCommand UpdatePriceCommand { get; private set; }
 
-        private async void UpdatePrice() {
+        public async void UpdatePrice() {
             Status = "Fetching Groestlcoin Price...";
             Errors = string.Empty;
             IsReceiving = true;
@@ -148,7 +148,8 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                     api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
                     break;
             }
-
+            Settings.SelectedCurrency = SelectedCurrency;
+            SelectedCurrencySymbol = LocalCurrencySymbol;
             Response<decimal> resp = await api.UpdatePriceAsync();
             if (resp.Errors.Any()){
                 Errors = resp.Errors.GetErrors();
@@ -159,6 +160,8 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                 RaisePropertyChanged("GroestlcoinPrice");
                 Status = "Price Update Success!";
             }
+            RaisePropertyChanged("SelectedCurrency");
+            RaisePropertyChanged("SelectedCurrencySymbol");
             IsReceiving = false;
         }
     }

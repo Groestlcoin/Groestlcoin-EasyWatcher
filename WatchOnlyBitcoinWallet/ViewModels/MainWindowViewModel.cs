@@ -9,25 +9,22 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Threading;
 using WatchOnlyGroestlcoinWallet.Models;
+using WatchOnlyGroestlcoinWallet.Properties;
 using WatchOnlyGroestlcoinWallet.Services;
 using WatchOnlyGroestlcoinWallet.Services.BalanceServices;
 using WatchOnlyGroestlcoinWallet.Services.ExchangeRateServices;
 
-namespace WatchOnlyGroestlcoinWallet.ViewModels
-{
-    public class MainWindowViewModel : ViewModelBase
-    {
-        private DispatcherTimer refreshTimer;
+namespace WatchOnlyGroestlcoinWallet.ViewModels {
+    public class MainWindowViewModel : ViewModelBase {
+        private readonly DispatcherTimer refreshTimer;
 
-        public MainWindowViewModel()
-        {
+        public MainWindowViewModel() {
             AddressList = new BindingList<GroestlcoinAddress>(DataManager.ReadFile<List<GroestlcoinAddress>>(DataManager.FileType.Wallet));
             AddressList.ListChanged += AddressList_ListChanged;
 
             SettingsInstance = DataManager.ReadFile<SettingsModel>(DataManager.FileType.Settings);
 
-            if (string.IsNullOrEmpty(SettingsInstance.LocalCurrencySymbol))
-            {
+            if (string.IsNullOrEmpty(SettingsInstance.LocalCurrencySymbol)){
                 SettingsInstance.SelectedCurrency = SettingsInstance.SelectedCurrency;
             }
 
@@ -45,44 +42,56 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             VersionString = $"Version {ver.Major}.{ver.Minor}.{ver.Build}";
 
-            AddressList.RaiseListChangedEvents = true;
-            AddressList.ListChanged += (sender, args) =>
-            {
-                if (args.ListChangedType == ListChangedType.ItemChanged || args.ListChangedType == ListChangedType.ItemDeleted)
-                    GetBalance();
-            };
+            if (GroestlcoinBalanceUSD == 0){
+                PriceApi api;
+                switch (SettingsInstance.SelectedPriceApi){
+                    case PriceServiceNames.Chainz:
+                        api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
+                        break;
+                    case PriceServiceNames.CoinMarketCap:
+                        api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.CoinMarketCap();
+                        break;
+                    default:
+                        api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
+                        break;
+                }
+            }
         }
 
-        void RefreshBalances(object state, EventArgs e)
-        {
-            try
-            {
+        void RefreshBalances(object state, EventArgs e) {
+            try{
                 GetBalance();
                 refreshTimer.Interval = new TimeSpan(0, 5, 0);
             }
-            catch
-            {
+            catch{
                 //Do Nothing
             }
         }
 
-        void AddressList_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (e.ListChangedType == ListChangedType.ItemChanged)
-            {
-                GroestlcoinAddress addr = ((BindingList<GroestlcoinAddress>)sender)[e.NewIndex];
-                if (addr.Address != null)
-                {
+        void AddressList_ListChanged(object sender, ListChangedEventArgs e) {
+            if (e.ListChangedType == ListChangedType.ItemChanged){
+                GroestlcoinAddress addr = ((BindingList<GroestlcoinAddress>) sender)[e.NewIndex];
+                if (addr.Address != null){
                     addr.Validate(addr.Address);
+                    try{
+                        GetBalance();
+                    }
+                    catch{
+                        //Do Nothing
+                    }
                 }
-                if (!addr.HasErrors)
-                {
+                if (!addr.HasErrors){
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
                 }
             }
-            else if (e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemAdded)
-            {
+            else if (e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemAdded){
                 DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
+                try{
+                    GetBalance();
+                }
+                catch{
+                    //Do Nothing
+                }
             }
         }
 
@@ -95,8 +104,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
         public bool IsReceiving {
             get { return isReceiving; }
             set {
-                if (SetField(ref isReceiving, value))
-                {
+                if (SetField(ref isReceiving, value)){
                     GetBalanceCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -108,8 +116,6 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
 
         public BindingList<GroestlcoinAddress> AddressList { get; set; }
 
-
-
         private SettingsModel settingsInstance;
 
         public SettingsModel SettingsInstance {
@@ -120,15 +126,15 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
         public string LocalCurrencySymbol => Enum.GetName(typeof(SupportedCurrencies), SettingsInstance.SelectedCurrency);
 
         public decimal GroestlcoinBalance {
-            get { return AddressList.Sum(x => (decimal)x.Balance); }
+            get { return AddressList.Sum(x => (decimal) x.Balance); }
         }
 
-        [DependsOnProperty(new[] { "GroestlcoinBalance", "SettingsInstance" })]
+        [DependsOnProperty(new[] {"GroestlcoinBalance", "SettingsInstance"})]
         public decimal GroestlcoinBalanceUSD => GroestlcoinBalance * SettingsInstance.GroestlcoinPriceInUSD;
 
         private decimal? _groestlcoinBalanceLC;
 
-        [DependsOnProperty(new[] { "GroestlcoinBalance", "SettingsInstance" })]
+        [DependsOnProperty(new[] {"GroestlcoinBalance", "SettingsInstance"})]
         public decimal? GroestlcoinBalanceLC {
             get {
                 var conversion = CurrencyConverterApi.GetConversion(SettingsInstance.SelectedCurrency);
@@ -139,26 +145,29 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
 
         public BindableCommand SettingsCommand { get; private set; }
 
-        private void OpenSettings()
-        {
+        private void OpenSettings() {
             IWindowManager winManager = new SettingsWindowManager();
             SettingsViewModel vm = new SettingsViewModel();
             vm.Settings = SettingsInstance;
             winManager.Show(vm);
             RaisePropertyChanged("SettingsInstance");
             DataManager.WriteFile(SettingsInstance, DataManager.FileType.Settings);
+            try{
+                vm.UpdatePrice();
+            }
+            catch{
+                //Do Nothing
+            }
         }
 
         public BindableCommand ImportFromTextCommand { get; }
 
-        private void ImportFromText()
-        {
+        private void ImportFromText() {
             IWindowManager winManager = new ImportWindowManager();
             ImportViewModel vm = new ImportViewModel();
             winManager.Show(vm);
 
-            if (vm.AddressList != null && vm.AddressList.Count != 0)
-            {
+            if (vm.AddressList != null && vm.AddressList.Count != 0){
                 vm.AddressList.ForEach(x => AddressList.Add(x));
                 Status = $"Successfully added {vm.AddressList.Count} addresses.";
             }
@@ -166,30 +175,24 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
 
         public BindableCommand ImportFromFileCommand { get; private set; }
 
-        private void ImportFromFile()
-        {
+        private void ImportFromFile() {
             Response<string[]> resp = DataManager.OpenFileDialog();
-            if (resp.Errors.Any())
-            {
+            if (resp.Errors.Any()){
                 Errors = resp.Errors.GetErrors();
                 Status = "Encountered an error while reading from file!";
             }
-            else if (resp.Result != null)
-            {
+            else if (resp.Result != null){
                 int addrCount = 0;
-                foreach (var s in resp.Result)
-                {
+                foreach (var s in resp.Result){
                     // remove possible white space
                     string addr = s.Replace(" ", "");
 
                     VerificationResult vr = ValidateAddr(addr);
-                    if (vr.IsVerified)
-                    {
-                        AddressList.Add(new GroestlcoinAddress() { Address = addr });
+                    if (vr.IsVerified){
+                        AddressList.Add(new GroestlcoinAddress() {Address = addr});
                         addrCount++;
                     }
-                    else
-                    {
+                    else{
                         Errors += Environment.NewLine + vr.Error + ": " + addr;
                     }
                 }
@@ -197,15 +200,12 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
             }
         }
 
-        private VerificationResult ValidateAddr(string addr)
-        {
+        private VerificationResult ValidateAddr(string addr) {
             VerificationResult vr = new VerificationResult();
-            if (addr.StartsWith("grs1"))
-            {
+            if (addr.StartsWith("grs1")){
                 vr = SegWitAddress.Verify(addr, SegWitAddress.NetworkType.MainNet);
             }
-            else
-            {
+            else{
                 vr = Base58.Verify(addr);
             }
             return vr;
@@ -213,10 +213,8 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
 
         public BindableCommand GetBalanceCommand { get; private set; }
 
-        private async void GetBalance()
-        {
-            if (!AddressList.ToList().TrueForAll(x => !x.HasErrors) || AddressList.Any(d => string.IsNullOrEmpty(d.Address)))
-            {
+        private async void GetBalance() {
+            if (!AddressList.ToList().TrueForAll(x => !x.HasErrors) || AddressList.Any(d => string.IsNullOrEmpty(d.Address))){
                 Errors = "Fix the errors in addresses first!";
                 return;
             }
@@ -225,8 +223,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
             IsReceiving = true;
 
             BalanceApi api = null;
-            switch (SettingsInstance.SelectedBalanceApi)
-            {
+            switch (SettingsInstance.SelectedBalanceApi){
                 case BalanceServiceNames.Chainz:
                     api = new Chainz();
                     break;
@@ -241,8 +238,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
             // Not all exchanges support Bech32 addresses!
             // The following "if" is to solve that.
             bool hasSegWit = AddressList.Any(x => x.Address.StartsWith("grs1", System.StringComparison.InvariantCultureIgnoreCase));
-            if (hasSegWit)
-            {
+            if (hasSegWit){
                 BalanceApi segApi = new Chainz();
                 List<GroestlcoinAddress> legacyAddrs = new List<GroestlcoinAddress>(AddressList.Where(x =>
                                                                                                           !x.Address.StartsWith("grs1", System.StringComparison.OrdinalIgnoreCase)));
@@ -250,35 +246,29 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels
                                                                                                           x.Address.StartsWith("grs1", System.StringComparison.OrdinalIgnoreCase)));
 
                 Response respSW = await segApi.UpdateBalancesAsync(segWitAddrs);
-                if (respSW.Errors.Any())
-                {
+                if (respSW.Errors.Any()){
                     Errors = "SegWit API error: " + respSW.Errors.GetErrors();
                     Status = "Error in SegWit API! Continue updating legacy balances...";
                 }
                 Response resp = await api.UpdateBalancesAsync(legacyAddrs);
-                if (resp.Errors.Any())
-                {
+                if (resp.Errors.Any()){
                     Errors = resp.Errors.GetErrors();
                     Status = "Encountered an error!";
                 }
-                else
-                {
+                else{
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
                     RaisePropertyChanged("GroestlcoinBalance");
                     LastUpdated = DateTime.Now;
                     Status = "Balance Update Success!";
                 }
             }
-            else
-            {
+            else{
                 Response resp = await api.UpdateBalancesAsync(AddressList.ToList());
-                if (resp.Errors.Any())
-                {
+                if (resp.Errors.Any()){
                     Errors = resp.Errors.GetErrors();
                     Status = "Encountered an error!";
                 }
-                else
-                {
+                else{
                     DataManager.WriteFile(AddressList, DataManager.FileType.Wallet);
                     RaisePropertyChanged("GroestlcoinBalance");
                     LastUpdated = DateTime.Now;
