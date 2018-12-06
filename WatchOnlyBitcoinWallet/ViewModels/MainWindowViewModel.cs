@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 using WatchOnlyGroestlcoinWallet.Models;
 using WatchOnlyGroestlcoinWallet.Properties;
@@ -25,7 +27,7 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             SettingsInstance = DataManager.ReadFile<SettingsModel>(DataManager.FileType.Settings);
 
             if (string.IsNullOrEmpty(SettingsInstance.LocalCurrencySymbol)){
-                SettingsInstance.SelectedCurrency = SettingsInstance.SelectedCurrency;
+                SettingsInstance.LocalCurrencySymbol = SettingsInstance.SelectedCurrency.ToString();
             }
 
             GetBalanceCommand = new BindableCommand(GetBalance, () => !IsReceiving);
@@ -42,20 +44,24 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             VersionString = $"Version {ver.Major}.{ver.Minor}.{ver.Build}";
 
-            if (GroestlcoinBalanceUSD == 0){
-                PriceApi api;
-                switch (SettingsInstance.SelectedPriceApi){
-                    case PriceServiceNames.Chainz:
-                        api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
-                        break;
-                    case PriceServiceNames.CoinMarketCap:
-                        api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.CoinMarketCap();
-                        break;
-                    default:
-                        api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
-                        break;
-                }
+            try{
+                UpdatePrices();
             }
+            catch{
+                Status = "Error Updating Prices...";
+            }
+        }
+
+        void UpdatePrices() {
+            Status = "Fetching Groestlcoin Price...";
+            var prices = Task.Run(() => SettingsModelContainer.UpdatePrice(SettingsInstance));
+            prices.Wait();
+
+            SettingsInstance = prices.Result.SettingsModel;
+            RaisePropertyChanged("SelectedCurrency");
+            RaisePropertyChanged("SelectedCurrencySymbol");
+            Status = prices.Result.Status;
+            Errors = prices.Result.Errors.GetErrors();
         }
 
         void RefreshBalances(object state, EventArgs e) {
@@ -137,8 +143,10 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         [DependsOnProperty(new[] {"GroestlcoinBalance", "SettingsInstance"})]
         public decimal? GroestlcoinBalanceLC {
             get {
-                var conversion = CurrencyConverterApi.GetConversion(SettingsInstance.SelectedCurrency);
-                _groestlcoinBalanceLC = conversion.Result * GroestlcoinBalanceUSD;
+                if (SettingsInstance.SelectedCurrency != null){
+                    var conversion = CurrencyConverterApi.GetConversion((SupportedCurrencies) SettingsInstance.SelectedCurrency);
+                    _groestlcoinBalanceLC = conversion.Result * GroestlcoinBalanceUSD;
+                }
                 return _groestlcoinBalanceLC;
             }
         }
@@ -149,15 +157,11 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             IWindowManager winManager = new SettingsWindowManager();
             SettingsViewModel vm = new SettingsViewModel();
             vm.Settings = SettingsInstance;
+            //Try update prices as soon as the app opens
             winManager.Show(vm);
             RaisePropertyChanged("SettingsInstance");
             DataManager.WriteFile(SettingsInstance, DataManager.FileType.Settings);
-            try{
-                vm.UpdatePrice();
-            }
-            catch{
-                //Do Nothing
-            }
+            Status = "";
         }
 
         public BindableCommand ImportFromTextCommand { get; }
@@ -276,6 +280,11 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
                 }
             }
             Status += $" - Last Updated: {LastUpdated.ToShortDateString()} {LastUpdated.ToShortTimeString()}";
+
+            if (SettingsInstance.GroestlcoinPriceInUSD == 0){
+                Status = "Error: Please open settings and press refresh to get FIAT balances";
+            }
+
             IsReceiving = false;
         }
     }

@@ -34,7 +34,7 @@
                 <Button Content="{materialDesign:PackIcon Update}" ToolTip="Update"  Command="{Binding UpdatePriceCommand}" Margin="3" Grid.Column="1" />
             </Grid>
             <!--<TextBox Text="{Binding USDPrice, UpdateSourceTrigger=PropertyChanged,StringFormat=N8}" materialDesign:HintAssist.Hint="{Binding ConversionRateLabelText, FallbackValue='USD Conversion Rate', NotifyOnSourceUpdated=True, TargetNullValue='USD Conversion Rate: '}" Grid.Row="3" Margin="3" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />-->
-            <ComboBox ItemsSource="{Binding SupportedCurrencyList}" SelectedItem="{Binding SelectedCurrency, FallbackValue=0}"  materialDesign:HintAssist.Hint="Secondary Currency"  Grid.Row="2" Margin="3" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+            <ComboBox ItemsSource="{Binding SupportedCurrencyList}" SelectedItem="{Binding SelectedCurrency}"  materialDesign:HintAssist.Hint="Secondary Currency"  Grid.Row="2" Margin="3" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
             <ComboBox ItemsSource="{Binding BalanceApiList}" materialDesign:HintAssist.Hint="Balance Api" SelectedItem="{Binding Settings.SelectedBalanceApi, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" Margin="3" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
             <ComboBox ItemsSource="{Binding PriceApiList}" SelectedItem="{Binding SelectedPriceApi}" materialDesign:HintAssist.Hint="Price Api" Grid.Column="1" Grid.Row="5" Margin="3" Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
 
