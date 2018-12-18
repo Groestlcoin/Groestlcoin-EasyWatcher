@@ -1,7 +1,7 @@
 # Groestlcoin Sentinel (Windows)
 <img src="Images/GRS-logo.png" width="64" alt="Groestlcoin Logo">
 
-This is a simple open source tool created to help keep track of bitcoin addresses and their balances in a light application.
+This is a simple open source tool created to help keep track of Groestlcoin addresses and their balances in a light application.
 ![ScreenShot](Images/Main.PNG)
 
 
