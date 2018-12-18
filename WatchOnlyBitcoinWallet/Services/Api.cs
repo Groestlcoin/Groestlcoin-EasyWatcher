@@ -10,20 +10,32 @@ namespace WatchOnlyGroestlcoinWallet.Services {
         Chainz,
         CoinMarketCap
     }
+
     public enum BalanceServiceNames {
         Chainz,
         Insight
     }
 
+    public enum SupportedCurrencies {
+        EUR,
+        KRW,
+        GBP,
+        AUD,
+        CAD,
+        CNY,
+        TRY,
+        INR,
+    }
+
     public abstract class Api {
         protected async Task<Response<JObject>> SendApiRequestAsync(string url) {
             Response<JObject> resp = new Response<JObject>();
-            using (HttpClient client = new HttpClient()) {
-                try {
+            using (HttpClient client = new HttpClient()){
+                try{
                     string result = await client.GetStringAsync(url);
                     resp.Result = JObject.Parse(result);
                 }
-                catch (Exception ex) {
+                catch (Exception ex){
                     string errMsg = (ex.InnerException == null) ? ex.Message : ex.Message + " " + ex.InnerException;
                     resp.Errors.Add(errMsg);
                 }

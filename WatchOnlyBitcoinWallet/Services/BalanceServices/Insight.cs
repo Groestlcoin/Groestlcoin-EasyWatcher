@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WatchOnlyGroestlcoinWallet.Models;
@@ -10,13 +11,13 @@ namespace WatchOnlyGroestlcoinWallet.Services.BalanceServices {
         public override async Task<Response> UpdateBalancesAsync(List<GroestlcoinAddress> addrList) {
             Response resp = new Response();
             foreach (var addr in addrList) {
-                string url = "https://groestlsight.groestlcoin.org/api/addr/" + addr.Address + "/balance";
+                string url = "https://groestlsight.groestlcoin.org/api/addr/" + addr.Address.Trim() + "/balance";
 
                 using (var httpClient = new HttpClient()) {
                     var res = await httpClient.GetAsync(url);
                     if (res.IsSuccessStatusCode) {
 
-                        var balance = decimal.Parse(res.Content.ReadAsStringAsync().Result) / 100000000;
+                        var balance = decimal.Parse(res.Content.ReadAsStringAsync().Result, CultureInfo.InvariantCulture) / 100000000;
                         addr.Difference = balance - addr.Balance;
                         addr.Balance = balance;
                     }

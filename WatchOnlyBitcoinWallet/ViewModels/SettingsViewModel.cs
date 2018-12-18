@@ -1,23 +1,26 @@
 ﻿using MVVMLibrary;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using WatchOnlyGroestlcoinWallet.Models;
 using WatchOnlyGroestlcoinWallet.Services;
 using WatchOnlyGroestlcoinWallet.Services.BalanceServices;
 using WatchOnlyGroestlcoinWallet.Services.PriceServices;
 
-namespace WatchOnlyGroestlcoinWallet.ViewModels {
-    public class SettingsViewModel : ViewModelBase {
-        public SettingsViewModel() {
+namespace WatchOnlyGroestlcoinWallet.ViewModels
+{
+    public class SettingsViewModel : ViewModelBase
+    {
+        public SettingsViewModel()
+        {
             BalanceApiList = new ObservableCollection<BalanceServiceNames>((BalanceServiceNames[])Enum.GetValues(typeof(BalanceServiceNames)));
             PriceApiList = new ObservableCollection<PriceServiceNames>((PriceServiceNames[])Enum.GetValues(typeof(PriceServiceNames)));
+            SupportedCurrencyList = new ObservableCollection<SupportedCurrencies>((SupportedCurrencies[])Enum.GetValues(typeof(SupportedCurrencies)));
 
             UpdatePriceCommand = new BindableCommand(UpdatePrice, () => !IsReceiving);
 
             RaisePropertyChanged("ConversionRateLabelText");
         }
-
-
 
         /// <summary>
         /// Indicating an active connection.
@@ -26,35 +29,36 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         public bool IsReceiving {
             get { return isReceiving; }
             set {
-                if (SetField(ref isReceiving, value)) {
+                if (SetField(ref isReceiving, value))
+                {
                     UpdatePriceCommand.RaiseCanExecuteChanged();
                 }
             }
         }
+
         private bool isReceiving;
 
         private string conversionRateLabelText;
+
         public string ConversionRateLabelText {
-            get {
-                return conversionRateLabelText;
-            }
+            get { return conversionRateLabelText; }
             set {
                 conversionRateLabelText = value;
                 RaisePropertyChanged("ConversionRateLabelText");
             }
-
         }
+
         public ObservableCollection<BalanceServiceNames> BalanceApiList { get; set; }
 
         public ObservableCollection<PriceServiceNames> PriceApiList { get; set; }
-
+        public ObservableCollection<SupportedCurrencies> SupportedCurrencyList { get; set; }
 
         private SettingsModel settings;
+
         public SettingsModel Settings {
             get { return settings; }
             set { SetField(ref settings, value); }
         }
-
 
         public BalanceServiceNames SelectedBalanceApi {
             get { return Settings.SelectedBalanceApi; }
@@ -67,22 +71,82 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
             }
         }
 
-
         public PriceServiceNames SelectedPriceApi {
             get { return Settings.SelectedPriceApi; }
             set {
-                if (Settings.SelectedPriceApi != value) {
+                if (Settings.SelectedPriceApi != value)
+                {
                     Settings.SelectedPriceApi = value;
                     RaisePropertyChanged("SelectedPriceApi");
                 }
             }
         }
 
+        public SupportedCurrencies? SelectedCurrency {
+            get {
+                if (Settings?.SelectedCurrency != null)
+                {
+                    return Settings.SelectedCurrency;
+                }
+                var local = NumberFormatInfo.CurrentInfo.CurrencySymbol;
+                switch (local)
+                {
+                    case ("£"):
+                        return SupportedCurrencies.GBP;
+                    case ("₩"):
+                        return SupportedCurrencies.KRW;
+                    case ("¥"):
+                        return SupportedCurrencies.CNY;
+                    case ("€"):
+                    default:
+                        return SupportedCurrencies.EUR;
+                }
+            }
+            set {
+                if (Settings.SelectedCurrency != value)
+                {
+                    Settings.SelectedCurrency = value;
+                    RaisePropertyChanged("SelectedCurrency");
+                }
+                Settings.LocalCurrencySymbol = Enum.GetName(typeof(SupportedCurrencies), value);
+            }
+        }
+
+        public string SelectedCurrencySymbol {
+            get {
+                if (Settings?.SelectedCurrency != null)
+                {
+                    return LocalCurrencySymbol;
+                }
+                var local = NumberFormatInfo.CurrentInfo.CurrencySymbol;
+                switch (local)
+                {
+                    case ("£"):
+                        return SupportedCurrencies.GBP.ToString();
+                    case ("€"):
+                        return SupportedCurrencies.EUR.ToString();
+                    case ("₩"):
+                        return SupportedCurrencies.KRW.ToString();
+                    case ("¥"):
+                        return SupportedCurrencies.CNY.ToString();
+                    default:
+                        return SupportedCurrencies.EUR.ToString();
+                }
+            }
+            set {
+                if (Settings.LocalCurrencySymbol != value)
+                {
+                    Settings.LocalCurrencySymbol = value;
+                    RaisePropertyChanged("SelectedCurrencySymbol");
+                }
+            }
+        }
 
         public decimal GroestlcoinPrice {
             get { return Settings.GroestlcoinPriceInUSD; }
             set {
-                if (Settings.GroestlcoinPriceInUSD != value) {
+                if (Settings.GroestlcoinPriceInUSD != value)
+                {
                     Settings.GroestlcoinPriceInUSD = value;
                     RaisePropertyChanged("GroestlcoinPrice");
                 }
@@ -92,59 +156,32 @@ namespace WatchOnlyGroestlcoinWallet.ViewModels {
         public decimal USDPrice {
             get { return Settings.DollarPriceInLocalCurrency; }
             set {
-                if (Settings.DollarPriceInLocalCurrency != value) {
+                if (Settings.DollarPriceInLocalCurrency != value)
+                {
                     Settings.DollarPriceInLocalCurrency = value;
                     RaisePropertyChanged("USDPrice");
                 }
             }
         }
 
-        public string LocalCurrencySymbol {
-            get {
-                ConversionRateLabelText = $"USD to {Settings.LocalCurrencySymbol} Rate: ";
-                return Settings.LocalCurrencySymbol;
-            }
-            set {
-                if (Settings.LocalCurrencySymbol != value) {
-                    Settings.LocalCurrencySymbol = value;
-                    RaisePropertyChanged("LocalCurrencySymbol");
-                }
-                RaisePropertyChanged("ConversionRateLabelText");
-            }
-        }
-
+        public string LocalCurrencySymbol => Settings.SelectedCurrency.ToString();
 
         public BindableCommand UpdatePriceCommand { get; private set; }
-        private async void UpdatePrice() {
-            Status = "Fetching Groestlcoin Price...";
-            Errors = string.Empty;
+
+        public async void UpdatePrice()
+        {
             IsReceiving = true;
+            Status = "Fetching Groestlcoin Price...";
+            Settings.SelectedCurrency = SelectedCurrency;
+            Settings.LocalCurrencySymbol = SelectedCurrencySymbol;
 
-            PriceApi api = null;
-            switch (Settings.SelectedPriceApi) {
-                case PriceServiceNames.Chainz:
-                    api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
-                    break;
-                case PriceServiceNames.CoinMarketCap:
-                    api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.CoinMarketCap();
-                    break;
-                default:
-                    api = new WatchOnlyGroestlcoinWallet.Services.PriceServices.Chainz();
-                    break;
-            }
-
-            Response<decimal> resp = await api.UpdatePriceAsync();
-            if (resp.Errors.Any()) {
-                Errors = resp.Errors.GetErrors();
-                Status = "Encountered an error!";
-            }
-            else {
-                Settings.GroestlcoinPriceInUSD = resp.Result;
-                RaisePropertyChanged("GroestlcoinPrice");
-                Status = "Price Update Success!";
-            }
+            var prices = await SettingsModelContainer.UpdatePrice(Settings);
+            Settings = prices.SettingsModel;
+            RaisePropertyChanged("SelectedCurrency");
+            RaisePropertyChanged("SelectedCurrencySymbol");
+            Status = prices.Status;
+            Errors = prices.Errors.GetErrors();
             IsReceiving = false;
         }
-
     }
 }

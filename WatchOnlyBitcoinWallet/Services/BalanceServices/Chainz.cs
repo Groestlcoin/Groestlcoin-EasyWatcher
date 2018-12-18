@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WatchOnlyGroestlcoinWallet.Models;
@@ -16,7 +17,7 @@ namespace WatchOnlyGroestlcoinWallet.Services.BalanceServices {
                     var res = await httpClient.GetAsync(url);
                     if (res.IsSuccessStatusCode) {
 
-                        var balance = decimal.Parse(res.Content.ReadAsStringAsync().Result);
+                        var balance = decimal.Parse(res.Content.ReadAsStringAsync().Result, CultureInfo.InvariantCulture);
                         addr.Difference = balance - addr.Balance;
                         addr.Balance = balance;
                     }
